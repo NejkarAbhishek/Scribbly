@@ -1,6 +1,6 @@
-const Drawing = require('../models/Drawing');
+import Drawing from '../models/Drawing.js';
 
-exports.createDrawing = async (req, res, next) => {
+export const createDrawing = async (req, res, next) => {
   try {
     const drawing = await Drawing.create({ ...req.body, author: req.userId });
     res.json(drawing);
@@ -9,7 +9,7 @@ exports.createDrawing = async (req, res, next) => {
   }
 };
 
-exports.deleteDrawing = async (req, res, next) => {
+export const deleteDrawing = async (req, res, next) => {
   try {
     await Drawing.findByIdAndDelete(req.params.id);
     res.json({ message: 'Drawing deleted' });

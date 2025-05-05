@@ -3,12 +3,8 @@ import {
   createMeeting,
   viewMeetings,
   joinMeeting,
-  manageMembers,
   getMeetingById,
-  getAdminOverview,
   updateMeetingProfile,
-  getAllChats,
-  sendChat
 } from "../controllers/meetingController.js";
 import protect from "../middlewares/authMiddleware.js";
 import multer from "multer";
@@ -58,16 +54,14 @@ router.post("/create", protect, upload.single("image"), createMeeting);
 router.get("/", protect, viewMeetings);
 router.get("/:id", protect, getMeetingById);
 router.post("/:id/join", protect, joinMeeting);
-router.put("/:id/members", protect, manageMembers);
-router.get("/api/admin-overview", protect, getAdminOverview);
 router.post(
   "/:id/uploadMeetingImage",
   protect,
   upload.single("image"),
   updateMeetingProfile
 );
-router.post("/:id/chat", protect, sendChat);
-router.get("/:id/chats", protect, getAllChats);
+//router.post("/:id/chat", protect, sendChat);
+//router.get("/:id/chats", protect, getAllChats);
 
 
 export default router;

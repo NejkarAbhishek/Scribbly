@@ -1,10 +1,10 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const auth = require('../middleware/auth');
-const { createDrawing, deleteDrawing } = require('../controllers/drawingController');
+import auth from '../middlewares/authMiddleware.js';
+import {createDrawing, deleteDrawing} from '../controllers/drawingController.js';
 
 router.use(auth);
 router.post('/', createDrawing);
 router.delete('/:id', deleteDrawing);
 
-module.exports = router;
+export default router;

@@ -1,6 +1,6 @@
-const Note = require('../models/Note');
+import Note from '../models/Notes.js';
 
-exports.createNote = async (req, res, next) => {
+export const createNote = async (req, res, next) => {
   try {
     const note = await Note.create({ ...req.body, author: req.userId });
     res.json(note);
@@ -9,20 +9,16 @@ exports.createNote = async (req, res, next) => {
   }
 };
 
-exports.updateNote = async (req, res, next) => {
-  try {
-    const note = await Note.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.json(note);
-  } catch (err) {
-    next(err);
-  }
-};
+export const updateNote = async (req, res, next) => {
+    try {
+      await Note.findByIdAndDelete(req.params.id);
+      res.json({ message: 'Note updated' });
+    } catch (err) {
+      next(err);
+    }
+  };
 
-exports.deleteNote = async (req, res, next) => {
+export const deleteNote = async (req, res, next) => {
   try {
     await Note.findByIdAndDelete(req.params.id);
     res.json({ message: 'Note deleted' });
@@ -30,3 +26,7 @@ exports.deleteNote = async (req, res, next) => {
     next(err);
   }
 };
+
+
+
+

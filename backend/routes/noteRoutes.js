@@ -1,15 +1,11 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const auth = require('../middleware/auth');
-const {
-  createNote,
-  updateNote,
-  deleteNote
-} = require('../controllers/noteController');
+import auth from '../middlewares/authMiddleware.js';
+import { createNote, updateNote, deleteNote } from '../controllers/noteController.js';
 
 router.use(auth);
 router.post('/', createNote);
 router.put('/:id', updateNote);
 router.delete('/:id', deleteNote);
 
-module.exports = router;
+export default router;

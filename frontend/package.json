@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@auth0/angular-jwt": "^5.2.0",
+    "ngx-socket-io": "^4.8.5",
+    "socket.io-client": "^4.8.1"
+  }
+}

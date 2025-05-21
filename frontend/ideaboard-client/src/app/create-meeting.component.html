@@ -1,0 +1,14 @@
+<!-- src/app/create-meeting.component.html -->
+<div class="panel">
+  <h2>Create a Session</h2>
+  <label>
+    Name
+    <input [(ngModel)]="name" placeholder="Session name" />
+  </label>
+  <label>
+    Description
+    <textarea [(ngModel)]="description" placeholder="Brief description"></textarea>
+  </label>
+  <button (click)="create()">Create</button>
+  <div *ngIf="error" class="error">{{ error }}</div>
+</div>

@@ -1,0 +1,10 @@
+<!-- src/app/join-meeting.component.html -->
+<div class="panel">
+  <h2>Join a Session</h2>
+  <label>
+    Session Code
+    <input [(ngModel)]="code" placeholder="Enter code" />
+  </label>
+  <button (click)="join()">Join</button>
+  <div *ngIf="error" class="error">{{ error }}</div>
+</div>

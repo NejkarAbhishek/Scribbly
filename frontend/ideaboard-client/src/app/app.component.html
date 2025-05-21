@@ -1,8 +1,13 @@
 <nav class="navbar">
-  <a class="brand" routerLink="/">Scribbly</a>
-  <div class="nav-actions">
-    <button *ngIf="!auth.isLoggedIn()" (click)="goLogin()">Login</button>
-    <button *ngIf="auth.isLoggedIn()" (click)="auth.logout()">Logout</button>
+  <div class="brand">Scribbly</div>
+  <div class="nav-right">
+    <a *ngIf="!auth.isLoggedIn()" routerLink="/login">Login</a>
+    <ng-container *ngIf="auth.isLoggedIn()">
+      <a routerLink="/create">Create</a>
+      <a routerLink="/join">Join</a>
+      <a routerLink="/meetings">My Sessions</a>
+      <button (click)="logout()">Logout</button>
+    </ng-container>
   </div>
 </nav>
 <router-outlet></router-outlet>

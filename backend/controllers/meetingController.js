@@ -73,3 +73,32 @@ export const endMeeting = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+export const updateMeetingProfile = async (req, res) => {
+  const meeting = await Meeting.findById(req.params.id);
+  console.log(meeting);
+
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded." });
+    }
+
+    const meetingImage = path.normalize(req.file.path);
+
+    const updatedMeeting = await Meeting.findByIdAndUpdate(
+      meeting,
+      { profileImage },
+      { new: true }
+    );
+
+    updatedMeeting.meetingImage = updatedMeeting.meetingImage.replace(/\\/g, "/");
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      meeting: updatedMeeting,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+};

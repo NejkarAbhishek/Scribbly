@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SocketService } from '../app/services/socket.service';
 
-@Component({ selector: 'app-whiteboard', templateUrl: './whiteboard.component.html' })
+@Component({ selector: 'app-whiteboard', templateUrl: '../app/whiteboard.component.html' })
 export class WhiteboardComponent implements OnInit {
   @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   ctx!: CanvasRenderingContext2D;

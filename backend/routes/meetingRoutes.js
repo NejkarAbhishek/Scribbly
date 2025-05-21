@@ -1,7 +1,7 @@
 import express from "express";
 import {
   createMeeting,
-  viewMeetings,
+  getMeetings,
   joinMeeting,
   getMeetingById,
   updateMeetingProfile,
@@ -51,7 +51,7 @@ const router = express.Router();
 
 
 router.post("/create", protect, upload.single("image"), createMeeting);
-router.get("/", protect, viewMeetings);
+router.get("/", protect, getMeetings);
 router.get("/:id", protect, getMeetingById);
 router.post("/:id/join", protect, joinMeeting);
 router.post(

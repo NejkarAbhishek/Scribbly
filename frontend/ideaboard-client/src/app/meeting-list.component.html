@@ -1,0 +1,10 @@
+<!-- src/app/meeting-list.component.html -->
+<h2>Your Active Sessions</h2>
+<div *ngIf="error" class="error">{{ error }}</div>
+<ul>
+  <li *ngFor="let m of meetings">
+    <strong>{{ m.name }}</strong> ({{ m.code }})
+    <button (click)="open(m._id)">Open</button>
+    <button (click)="end(m._id)">End</button>
+  </li>
+</ul>

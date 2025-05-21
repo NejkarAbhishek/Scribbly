@@ -5,7 +5,6 @@ import {
   getUserProfile,
   updateProfile,
   deleteUser,
-  getAllUsersAndCounts,
 } from "../controllers/userController.js";
 import protect from "../middlewares/authMiddleware.js";
 import multer from "multer";
@@ -60,6 +59,5 @@ router.post(
   updateProfile
 );
 router.delete("/delete/:id", deleteUser);
-router.get("/all-users", protect, getAllUsersAndCounts);
 
 export default router;

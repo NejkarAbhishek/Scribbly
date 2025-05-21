@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
+// src/app/app.component.ts
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: `ser`,
 })
-export class AppComponent {
-  title = 'ideaboard-client';
-}
+export class AppComponent{
+   title = 'ideaboard-client';
+ }

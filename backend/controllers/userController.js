@@ -95,7 +95,6 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// Delete User API
 export const deleteUser = async (req, res) => {
   const userId = req.params.id;
 
@@ -107,27 +106,6 @@ export const deleteUser = async (req, res) => {
     }
 
     res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const getAllUsersAndCounts = async (req, res) => {
-  try {
-    const users = await User.find();
-    const roleCounts = await User.aggregate([
-      { $group: { _id: "$role", count: { $sum: 1 } } },
-    ]);
-
-    const roleCountMap = roleCounts.reduce((acc, role) => {
-      acc[role._id] = role.count;
-      return acc;
-    }, {});
-
-    res.status(200).json({
-      users,
-      roleCounts: roleCountMap,
-    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

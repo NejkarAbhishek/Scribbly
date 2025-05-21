@@ -1,0 +1,8 @@
+<nav class="navbar">
+  <a class="brand" routerLink="/">Scribbly</a>
+  <div class="nav-actions">
+    <button *ngIf="!auth.isLoggedIn()" (click)="goLogin()">Login</button>
+    <button *ngIf="auth.isLoggedIn()" (click)="auth.logout()">Logout</button>
+  </div>
+</nav>
+<router-outlet></router-outlet>

@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
 
-// src/app/app.component.ts
 @Component({
   selector: 'app-root',
-  template: `ser`,
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, FormsModule, HttpClientModule],
+  templateUrl: './app.component.html'
 })
-export class AppComponent{
-   title = 'ideaboard-client';
- }
+export class AppComponent {
+  constructor(public auth: AuthService) {}
+  goLogin() { window.location.href = '/login'; }
+}

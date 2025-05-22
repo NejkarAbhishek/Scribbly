@@ -1,10 +1,53 @@
-<!-- src/app/join-meeting.component.html -->
-<div class="panel">
-  <h2>Join a Session</h2>
-  <label>
-    Session Code
-    <input [(ngModel)]="code" placeholder="Enter code" />
-  </label>
-  <button (click)="join()">Join</button>
-  <div *ngIf="error" class="error">{{ error }}</div>
+<div class="join-meeting-container">
+  <div class="join-meeting-card">
+    <div class="join-meeting-header">
+      <h1 class="page-title">Join a Meeting</h1>
+      <p class="page-description">Enter a meeting code to join an existing whiteboard session</p>
+    </div>
+
+    <form (ngSubmit)="join()" class="join-meeting-form">
+      <div class="form-group">
+        <label for="meetingCode">Meeting Code</label>
+        <div class="input-with-icon">
+          <i class="fas fa-hashtag"></i>
+          <input 
+            [(ngModel)]="code" 
+            name="meetingCode" 
+            id="meetingCode" 
+            type="text" 
+            placeholder="Enter meeting code"
+            required
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>{{ error }}</span>
+      </div>
+
+      <button type="submit" class="btn-join" [disabled]="isLoading">
+        <i class="fas fa-sign-in-alt"></i>
+        <span *ngIf="!isLoading">Join Meeting</span>
+        <span *ngIf="isLoading">Joining...</span>
+      </button>
+    </form>
+
+    <div class="join-meeting-info">
+      <div class="info-box">
+        <div class="info-icon">
+          <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="info-content">
+          <h3>Where to find the code?</h3>
+          <p>The meeting creator can share the code with you, or you can find it in a meeting invitation if you received one.</p>
+        </div>
+      </div>
+
+      <div class="create-new">
+        <p>Don't have a code? <a routerLink="/create" class="create-link">Create your own meeting</a></p>
+      </div>
+    </div>
+  </div>
 </div>

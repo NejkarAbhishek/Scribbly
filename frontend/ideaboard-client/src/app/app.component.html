@@ -1,13 +1,26 @@
-<nav class="navbar">
-  <div class="brand">Scribbly</div>
-  <div class="nav-right">
-    <a *ngIf="!auth.isLoggedIn()" routerLink="/login">Login</a>
-    <ng-container *ngIf="auth.isLoggedIn()">
-      <a routerLink="/create">Create</a>
-      <a routerLink="/join">Join</a>
-      <a routerLink="/meetings">My Sessions</a>
-      <button (click)="logout()">Logout</button>
-    </ng-container>
+<nav *ngIf="showNavbar" class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a routerLink="/" class="brand">
+        <img src="assets/images/logo.png" alt="Scribbly Logo" class="nav-logo">
+        <span>Scribbly</span>
+      </a>
+      
+      <div class="nav-links">
+        <ng-container *ngIf="!auth.isLoggedIn()">
+          <a routerLink="/login" class="nav-link">Login</a>
+          <a routerLink="/register" class="nav-button">Sign Up</a>
+        </ng-container>
+        
+        <ng-container *ngIf="auth.isLoggedIn()">
+          <a routerLink="/meetings" class="nav-link">My Meetings</a>
+          <a routerLink="/create" class="nav-link">Create Meeting</a>
+          <a routerLink="/join" class="nav-link">Join Meeting</a>
+          <button (click)="logout()" class="nav-button logout">Logout</button>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </nav>
+
 <router-outlet></router-outlet>

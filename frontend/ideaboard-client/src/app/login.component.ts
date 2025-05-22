@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.component.html'
+  imports: [CommonModule, FormsModule, RouterModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   email = '';
@@ -19,8 +20,15 @@ export class LoginComponent {
 
   submit() {
     this.error = '';
+    if (!this.email || !this.password) {
+      this.error = 'Email and password are required.';
+      return;
+    }
+    
     this.auth.login(this.email, this.password).subscribe({
-      next: () => this.router.navigate(['/create']),
+      next: () => {
+        this.router.navigate(['/meetings']);
+      },
       error: err => this.error = err.error?.message || 'Login failed'
     });
   }

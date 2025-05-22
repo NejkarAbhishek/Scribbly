@@ -1,31 +1,71 @@
-import { hash, compare } from 'bcrypt';
-import { getUserProfile, registerUser } from '../controllers/userController.js';
+import bcrypt from 'bcrypt';
+import User from '../models/User.js';
 import { generateToken } from '../config/jwt.js';
 
-export async function register(req, res, next) {
+export async function register(req, res) {
   try {
     const { name, email, password } = req.body;
-    const existing = await getUserProfile({ email });
-    if (existing) return res.status(400).json({ message: 'Email already registered' });
-    const passwordHash = await hash(password, 10);
-    const user = await registerUser({ name, email, passwordHash });
-    const token = generateToken({ userId: user._id });
-    res.json({ token });
+    
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already registered' });
+    }
+    
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    // Create user
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword
+    });
+    
+    if (user) {
+      // Generate token and send response
+      const token = generateToken(user._id);
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid user data' });
+    }
   } catch (err) {
-    next(err);
+    console.error('Registration error:', err);
+    res.status(500).json({ message: 'Server error during registration' });
   }
 }
 
-export async function login(req, res, next) {
+export async function login(req, res) {
   try {
     const { email, password } = req.body;
-    const user = await getUserProfile({ email });
-    if (!user) return res.status(400).json({ message: 'Invalid credentials' });
-    const match = await compare(password, user.passwordHash);
-    if (!match) return res.status(400).json({ message: 'Invalid credentials' });
-    const token = generateToken({ userId: user._id });
-    res.json({ token });
+    
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    
+    // Check password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    
+    // Generate token and send response
+    const token = generateToken(user._id);
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token
+    });
   } catch (err) {
-    next(err);
+    console.error('Login error:', err);
+    res.status(500).json({ message: 'Server error during login' });
   }
 }

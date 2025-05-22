@@ -1,10 +1,55 @@
 <!-- src/app/meeting-list.component.html -->
-<h2>Your Active Sessions</h2>
-<div *ngIf="error" class="error">{{ error }}</div>
-<ul>
-  <li *ngFor="let m of meetings">
-    <strong>{{ m.name }}</strong> ({{ m.code }})
-    <button (click)="open(m._id)">Open</button>
-    <button (click)="end(m._id)">End</button>
-  </li>
-</ul>
+<div class="meetings-container">
+  <div class="meetings-header">
+    <h1 class="page-title">My Meetings</h1>
+    <div class="meetings-actions">
+      <a routerLink="/create" class="btn-create">
+        <i class="fas fa-plus"></i> Create New Meeting
+      </a>
+      <a routerLink="/join" class="btn-join">
+        <i class="fas fa-sign-in-alt"></i> Join Meeting
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-error">
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <div *ngIf="meetings.length === 0" class="no-meetings">
+    <div class="empty-state">
+      <i class="fas fa-comments empty-icon"></i>
+      <h3>No active meetings</h3>
+      <p>Create a new meeting or join an existing one to get started.</p>
+    </div>
+  </div>
+
+  <div *ngIf="meetings.length > 0" class="meeting-cards">
+    <div *ngFor="let meeting of meetings" class="meeting-card">
+      <div class="meeting-content">
+        <div class="meeting-info">
+          <h3 class="meeting-name">{{ meeting.name }}</h3>
+          <p class="meeting-description">{{ meeting.description }}</p>
+          <div class="meeting-meta">
+            <span class="meeting-code">
+              <i class="fas fa-hashtag"></i> Code: <strong>{{ meeting.code }}</strong>
+            </span>
+            <span class="meeting-date">
+              <i class="fas fa-calendar-alt"></i> Created: {{ meeting.createdAt | date:'mediumDate' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="meeting-actions">
+          <button (click)="open(meeting._id)" class="btn-open">
+            <i class="fas fa-external-link-alt"></i> Open
+          </button>
+          <button (click)="end(meeting._id)" class="btn-end">
+            <i class="fas fa-times-circle"></i> End
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,20 @@
 // src/app/meeting-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { MeetingService, Meeting } from './services/meeting.service';
 
 @Component({
   selector: 'app-meeting-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './meeting-list.component.html'
+  imports: [CommonModule, RouterModule, DatePipe],
+  templateUrl: './meeting-list.component.html',
+  styleUrls: ['./meeting-list.component.scss']
 })
 export class MeetingListComponent implements OnInit {
   meetings: Meeting[] = [];
   error = '';
+  loading = true;
 
   constructor(
     private meetingService: MeetingService,
@@ -24,9 +26,16 @@ export class MeetingListComponent implements OnInit {
   }
 
   load() {
+    this.loading = true;
     this.meetingService.getMeetings().subscribe({
-      next: ms => this.meetings = ms.filter(m => m.isActive),
-      error: err => this.error = 'Could not load sessions'
+      next: (meetings) => {
+        this.meetings = meetings.filter((m: Meeting) => m.isActive);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Could not load meetings. Please try again later.';
+        this.loading = false;
+      }
     });
   }
 
@@ -37,7 +46,7 @@ export class MeetingListComponent implements OnInit {
   end(id: string) {
     this.meetingService.endMeeting(id).subscribe({
       next: () => this.load(),
-      error: () => this.error = 'Failed to end session'
+      error: () => this.error = 'Failed to end meeting. Please try again.'
     });
   }
 }

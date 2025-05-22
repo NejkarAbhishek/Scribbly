@@ -6,42 +6,95 @@ import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class SocketService {
   private socket!: Socket;
+
   connect(token: string): void {
-    this.socket = io(environment.socketUrl, { auth: { token } });
+    if (!this.socket || this.socket.disconnected) {
+      this.socket = io(environment.socketUrl, {
+        auth: { token }
+      });
+    }
   }
+
   disconnect(): void {
-    this.socket.disconnect();
+    if (this.socket) {
+      this.socket.disconnect();
+    }
   }
+
   joinMeeting(meetingId: string): void {
-    this.socket.emit('joinMeeting', meetingId);
+    if (this.socket) {
+      this.socket.emit('joinMeeting', meetingId);
+    }
   }
+
   leaveMeeting(meetingId: string): void {
-    this.socket.emit('leaveMeeting', meetingId);
+    if (this.socket) {
+      this.socket.emit('leaveMeeting', meetingId);
+    }
   }
+
   sendSignal(meetingId: string, data: any): void {
-    this.socket.emit('signal', { meetingId, data });
+    if (this.socket) {
+      this.socket.emit('signal', { meetingId, data });
+    }
   }
+
   onUserJoined(): Observable<string> {
     return new Observable(observer => {
-      this.socket.on('userJoined', id => observer.next(id));
+      if (this.socket) {
+        this.socket.on('userJoined', (id: string) => observer.next(id));
+      }
+      // Cleanup when observable is unsubscribed
+      return () => {
+        if (this.socket) {
+          this.socket.off('userJoined');
+        }
+      };
     });
   }
+
   onUserLeft(): Observable<string> {
     return new Observable(observer => {
-      this.socket.on('userLeft', id => observer.next(id));
+      if (this.socket) {
+        this.socket.on('userLeft', (id: string) => observer.next(id));
+      }
+      return () => {
+        if (this.socket) {
+          this.socket.off('userLeft');
+        }
+      };
     });
   }
+
   onSignal(): Observable<{ from: string; data: any }> {
     return new Observable(observer => {
-      this.socket.on('signal', payload => observer.next(payload));
+      if (this.socket) {
+        this.socket.on('signal', (payload: { from: string; data: any }) => observer.next(payload));
+      }
+      return () => {
+        if (this.socket) {
+          this.socket.off('signal');
+        }
+      };
     });
   }
+
   onChat(): Observable<{ user: string; message: string }> {
     return new Observable(observer => {
-      this.socket.on('chat', msg => observer.next(msg));
+      if (this.socket) {
+        this.socket.on('chat', (msg: { user: string; message: string }) => observer.next(msg));
+      }
+      return () => {
+        if (this.socket) {
+          this.socket.off('chat');
+        }
+      };
     });
   }
+
   sendChat(message: string): void {
-    this.socket.emit('chat', message);
+    if (this.socket) {
+      this.socket.emit('chat', message);
+    }
   }
 }

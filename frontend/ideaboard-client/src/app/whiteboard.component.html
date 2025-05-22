@@ -1,13 +1,133 @@
-<div>
-  <canvas #canvas width="800" height="600"
-    (mousedown)="startDraw($event)" (mousemove)="draw($event)" (mouseup)="endDraw()" (mouseleave)="endDraw()">
-  </canvas>
-  <div>
-    <label>Color:</label><input type="color" [(ngModel)]="color" />
-    <label>Size:</label><input type="number" [(ngModel)]="size" min="1" max="50" />
+<div class="whiteboard-container">
+  <!-- Toolbar -->
+  <div class="whiteboard-toolbar">
+    <div class="logo">
+      <span>Scribbly</span>
+    </div>
+    
+    <div class="drawing-tools">
+      <div class="tool-group">
+        <button 
+          class="tool-button" 
+          [class.active]="activeTool === 'brush'"
+          (click)="setTool('brush')" 
+          title="Brush">
+          <i class="fas fa-pen"></i>
+        </button>
+        <button 
+          class="tool-button" 
+          [class.active]="activeTool === 'eraser'"
+          (click)="setTool('eraser')" 
+          title="Eraser">
+          <i class="fas fa-eraser"></i>
+        </button>
+      </div>
+
+      <div class="tool-group">
+        <div class="color-picker">
+          <div *ngFor="let color of colors" 
+               class="color-option" 
+               [style.backgroundColor]="color"
+               [class.selected]="color === this.color"
+               (click)="setColor(color)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <div class="size-slider">
+          <input type="range" 
+                 [(ngModel)]="size" 
+                 min="1" max="50" 
+                 title="Brush Size">
+          <span class="size-value">{{size}}px</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="meeting-actions">
+      <button class="action-button" (click)="clearCanvas()" title="Clear Canvas">
+        <i class="fas fa-trash"></i>
+      </button>
+      <button class="action-button" (click)="toggleChat()" title="Toggle Chat">
+        <i class="fas fa-comments"></i>
+      </button>
+      <button class="action-button" (click)="copyMeetingCode()" title="Copy Meeting Code">
+        <i class="fas fa-share-alt"></i>
+      </button>
+      <button class="action-button leave" (click)="leaveMeeting()" title="Leave Meeting">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
   </div>
-  <div>
-    <ul><li *ngFor="let msg of chatLog">{{ msg.user }}: {{ msg.message }}</li></ul>
-    <input [(ngModel)]="chatMsg" placeholder="Type..." /><button (click)="sendChat()">Send</button>
+  
+  <!-- Main content area -->
+  <div class="whiteboard-content">
+    <div class="whiteboard-canvas-container">
+      <canvas #canvas
+        (mousedown)="startDraw($event)" 
+        (mousemove)="draw($event)" 
+        (mouseup)="endDraw()" 
+        (mouseleave)="endDraw()">
+      </canvas>
+    </div>
+
+    <!-- Chat panel -->
+    <div class="chat-panel" [class.active]="showChat">
+      <div class="chat-header">
+        <h3>Meeting Chat</h3>
+        <button class="close-chat" (click)="toggleChat()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="chat-messages">
+        <div *ngIf="chatLog.length === 0" class="no-messages">
+          <i class="fas fa-comments empty-chat-icon"></i>
+          <p>No messages yet</p>
+        </div>
+        
+        <div *ngFor="let msg of chatLog" class="chat-message">
+          <div class="message-header">
+            <span class="message-user">{{ msg.user }}</span>
+            <span class="message-time" *ngIf="msg.timestamp">
+              {{ msg.timestamp | date:'shortTime' }}
+            </span>
+          </div>
+          <div class="message-content">
+            {{ msg.message }}
+          </div>
+        </div>
+      </div>
+      
+      <div class="chat-input">
+        <input 
+          [(ngModel)]="chatMsg" 
+          placeholder="Type a message..." 
+          (keyup.enter)="sendChat()" 
+        />
+        <button (click)="sendChat()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile toolbar -->
+  <div class="mobile-toolbar" *ngIf="isMobileView">
+    <div class="mobile-tools">
+      <button [class.active]="activeTool === 'brush'" (click)="setTool('brush')">
+        <i class="fas fa-pen"></i>
+      </button>
+      <button [class.active]="activeTool === 'eraser'" (click)="setTool('eraser')">
+        <i class="fas fa-eraser"></i>
+      </button>
+      <button (click)="toggleChat()">
+        <i class="fas fa-comments"></i>
+      </button>
+      <button (click)="clearCanvas()">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
   </div>
 </div>

@@ -1,2 +1,116 @@
-<nav><button (click)="goLogin()">Login</button></nav>
-<main><h1>Scribbly</h1><p>Real-time collaborative whiteboard with chat</p><button (click)="goLogin()">Get Started</button></main>
+<!-- Scribbly Landing Page -->
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="Scribbly Logo">
+      <h1>Scribbly</h1>
+    </div>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a routerLink="/login" class="btn btn-login">Login</a></li>
+        <li><a routerLink="/register" class="btn btn-signup">Sign Up</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Where Ideas Come to Life</h1>
+        <p class="hero-description">Collaborate, brainstorm, and create together in real-time. Scribbly is your ultimate whiteboard platform for both professional projects and fun gaming sessions.</p>
+        <div class="hero-buttons">
+          <a routerLink="/register" class="btn btn-primary">Get Started</a>
+          <a href="#features" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="assets/images/hero-whiteboard.png" alt="Scribbly Whiteboard">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Why Choose Scribbly?</h2>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-pencil-alt"></i>
+          </div>
+          <h3>Real-time Collaboration</h3>
+          <p>Draw, write, and create together with teammates or friends in real-time, no matter where you are.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h3>Integrated Chat</h3>
+          <p>Discuss ideas while you work with our seamless built-in chat functionality.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <h3>Fun Gaming Mode</h3>
+          <p>Switch to gaming mode for Gartic Phone-style drawing games with friends and family.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3>Professional Tools</h3>
+          <p>Access powerful brainstorming and diagramming tools for your business needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">About Scribbly</h2>
+      <p class="about-description">Scribbly is the versatile whiteboard platform that bridges the gap between professional collaboration tools and fun interactive experiences. Whether you're designing your next big project or playing games with friends, Scribbly provides the perfect canvas for your creativity.</p>
+      
+      <div class="about-image">
+        <img src="assets/images/collaboration.png" alt="Scribbly Collaboration">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Get Started?</h2>
+      <p>Join thousands of teams and friends already using Scribbly!</p>
+      <a routerLink="/register" class="btn btn-cta">Sign Up Now - It's Free!</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="assets/images/logo-small.png" alt="Scribbly Logo">
+        <p>Scribbly &copy; 2023</p>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

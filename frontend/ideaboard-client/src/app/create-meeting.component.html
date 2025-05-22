@@ -1,14 +1,61 @@
 <!-- src/app/create-meeting.component.html -->
-<div class="panel">
-  <h2>Create a Session</h2>
-  <label>
-    Name
-    <input [(ngModel)]="name" placeholder="Session name" />
-  </label>
-  <label>
-    Description
-    <textarea [(ngModel)]="description" placeholder="Brief description"></textarea>
-  </label>
-  <button (click)="create()">Create</button>
-  <div *ngIf="error" class="error">{{ error }}</div>
+<div class="create-meeting-container">
+  <div class="create-meeting-card">
+    <div class="create-meeting-header">
+      <h1 class="page-title">Create a New Meeting</h1>
+      <p class="page-description">Set up a new collaborative whiteboard session</p>
+    </div>
+
+    <form (ngSubmit)="create()" class="create-meeting-form">
+      <div class="form-group">
+        <label for="meetingName">Meeting Name</label>
+        <div class="input-with-icon">
+          <i class="fas fa-chalkboard"></i>
+          <input 
+            [(ngModel)]="name" 
+            name="meetingName" 
+            id="meetingName" 
+            type="text" 
+            placeholder="Enter a name for your meeting"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="meetingDescription">Description</label>
+        <div class="input-with-icon textarea-container">
+          <i class="fas fa-align-left"></i>
+          <textarea 
+            [(ngModel)]="description" 
+            name="meetingDescription" 
+            id="meetingDescription" 
+            placeholder="Briefly describe the purpose of this meeting"
+            rows="4"
+          ></textarea>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>{{ error }}</span>
+      </div>
+
+      <button type="submit" class="btn-create" [disabled]="isLoading">
+        <i class="fas fa-plus"></i>
+        <span *ngIf="!isLoading">Create Meeting</span>
+        <span *ngIf="isLoading">Creating...</span>
+      </button>
+    </form>
+
+    <div class="create-meeting-tips">
+      <h3>Tips for a Great Collaboration</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> Choose a clear, descriptive name</li>
+        <li><i class="fas fa-check"></i> Include enough detail in the description</li>
+        <li><i class="fas fa-check"></i> Share the meeting code with your team</li>
+        <li><i class="fas fa-check"></i> Use the chat feature during collaboration</li>
+      </ul>
+    </div>
+  </div>
 </div>

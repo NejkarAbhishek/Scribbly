@@ -17,10 +17,16 @@ export class AppComponent implements OnInit {
   constructor(public auth: AuthService, private router: Router) {}
   
   ngOnInit() {
+    // Debug token status
+    this.auth.debugTokenStatus();
+    
+    // Test backend connection
+    this.testBackendConnection();
+    
     // Hide navbar on whiteboard page
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+    ).subscribe((event: any) => {
       this.showNavbar = !event.url.includes('/whiteboard/');
     });
   }
@@ -30,5 +36,12 @@ export class AppComponent implements OnInit {
     // AuthService's logout method already navigates to /login
     // If you want to navigate to '/' specifically after logout:
     // this.router.navigate(['/']);
+  }
+  
+  testBackendConnection() {
+    this.auth.testConnection().subscribe({
+      next: (res) => console.log('Backend connection successful:', res),
+      error: (err) => console.error('Backend connection failed:', err)
+    });
   }
 }

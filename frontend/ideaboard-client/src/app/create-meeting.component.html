@@ -4,6 +4,12 @@
     <div class="create-meeting-header">
       <h1 class="page-title">Create a New Meeting</h1>
       <p class="page-description">Set up a new collaborative whiteboard session</p>
+      <div class="token-status" *ngIf="tokenStatus">
+        <p [ngClass]="tokenStatus === 'No token found' ? 'status-error' : 'status-ok'">
+          <i class="fas" [ngClass]="tokenStatus === 'No token found' ? 'fa-exclamation-triangle' : 'fa-check-circle'"></i>
+          Authentication Status: {{ tokenStatus }}
+        </p>
+      </div>
     </div>
 
     <form (ngSubmit)="create()" class="create-meeting-form">

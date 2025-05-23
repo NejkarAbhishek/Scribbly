@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MeetingService } from './services/meeting.service';
+import { AuthService } from './services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -12,21 +13,41 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './create-meeting.component.html',
   styleUrls: ['./create-meeting.component.scss']
 })
-export class CreateMeetingComponent {
+export class CreateMeetingComponent implements OnInit {
   name = '';
   description = '';
   error = '';
   isLoading = false;
+  tokenStatus = '';
 
   constructor(
     private meetingService: MeetingService,
+    private authService: AuthService,
     private router: Router
   ) {}
+  
+  ngOnInit() {
+    // Debug token status
+    const token = this.authService.getToken();
+    this.tokenStatus = token ? 'Token exists' : 'No token found';
+    console.log('CreateMeeting Component - Token status:', this.tokenStatus);
+    if (token) {
+      console.log('Token value (first 15 chars):', token.substring(0, 15) + '...');
+    }
+  }
 
   create() {
     this.error = '';
     if (!this.name.trim()) {
       this.error = 'Meeting name is required.';
+      return;
+    }
+    
+    // Check token again before submit
+    const token = this.authService.getToken();
+    if (!token) {
+      this.error = 'You need to be logged in. Please log in again.';
+      this.router.navigate(['/login']);
       return;
     }
 
@@ -39,6 +60,12 @@ export class CreateMeetingComponent {
           this.router.navigate(['/whiteboard', id]);
         },
         error: (err: HttpErrorResponse) => {
+          console.error('Error creating meeting:', err);
+          console.error('Error status:', err.status);
+          console.error('Error status text:', err.statusText);
+          console.error('Error message:', err.message);
+          console.error('Full error response:', err.error);
+          
           this.error = err.error?.message || 'Failed to create meeting';
           this.isLoading = false;
         }

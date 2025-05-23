@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from './services/socket.service';
+import { MeetingService } from './services/meeting.service';
 import { Subject, takeUntil } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 interface DrawData {
   x: number;
@@ -50,6 +52,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   // Meeting info
   meetingId!: string;
   meetingCode = '';
+  meetingName = '';
   
   // Chat
   chatMsg = '';
@@ -60,6 +63,8 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute, 
     private socket: SocketService,
+    private meetingService: MeetingService,
+    private toastr: ToastrService,
     private router: Router
   ) {}
 
@@ -68,6 +73,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     this.setupCanvas();
     this.connectSocket();
     this.checkScreenSize();
+    this.getMeetingInfo();
   }
   
   ngOnDestroy() {
@@ -125,15 +131,20 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
         timestamp: new Date()
       });
     });
-    
-    // Get meeting code for sharing
-    this.getMeetingInfo();
   }
   
   getMeetingInfo() {
-    // This is just a placeholder - in a real app you'd fetch this from your API
-    // For now we'll just use a fake code
-    this.meetingCode = 'ABCD1234';
+    this.meetingService.getMeetingById(this.meetingId).subscribe({
+      next: (meeting) => {
+        this.meetingCode = meeting.code;
+        this.meetingName = meeting.name;
+        this.toastr.success(`Connected to meeting: ${meeting.name}`, 'Connected');
+      },
+      error: (error) => {
+        console.error('Error fetching meeting info:', error);
+        this.toastr.error('Failed to load meeting details', 'Error');
+      }
+    });
   }
   
   startDraw(e: MouseEvent) {
@@ -214,11 +225,16 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   }
   
   clearCanvas() {
-    if (confirm('Are you sure you want to clear the whiteboard?')) {
+    this.toastr.warning('Are you sure you want to clear the whiteboard?', 'Confirm Clear', {
+      timeOut: 5000,
+      closeButton: true,
+      progressBar: true
+    }).onTap.subscribe(() => {
       this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
       // Notify others about clear
       this.socket.sendSignal(this.meetingId, { type: 'clear' });
-    }
+      this.toastr.info('Whiteboard cleared', 'Cleared');
+    });
   }
   
   toggleChat() {
@@ -238,13 +254,19 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   }
   
   leaveMeeting() {
-    if (confirm('Are you sure you want to leave this meeting?')) {
+    this.toastr.warning('Are you sure you want to leave this meeting?', 'Confirm Leave', {
+      timeOut: 5000,
+      closeButton: true,
+      progressBar: true
+    }).onTap.subscribe(() => {
       this.router.navigate(['/meetings']);
-    }
+    });
   }
   
   copyMeetingCode() {
     navigator.clipboard.writeText(this.meetingCode);
-    alert('Meeting code copied to clipboard!');
+    this.toastr.success(`Code copied: ${this.meetingCode}`, 'Meeting Code', {
+      timeOut: 2000
+    });
   }
 }

@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Import Toastr styles */
+@import 'ngx-toastr/toastr';
+
 /* Global styles for Scribbly application */
 
 // Variables
@@ -106,4 +109,33 @@ input, textarea, select {
 app-root {
   display: block;
   min-height: 100vh;
+}
+
+// Toast custom styles
+.toast-container {
+  .ngx-toastr {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 15px;
+    
+    &:hover {
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .toast-success {
+    background-color: #10b981;
+  }
+  
+  .toast-error {
+    background-color: #ef4444;
+  }
+  
+  .toast-warning {
+    background-color: #f59e0b;
+  }
+  
+  .toast-info {
+    background-color: #3b82f6;
+  }
 }

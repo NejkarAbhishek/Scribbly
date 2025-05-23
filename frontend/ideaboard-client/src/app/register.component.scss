@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variables
 $primary-color: #4f46e5;
 $secondary-color: #7c3aed;
@@ -139,7 +141,7 @@ $box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     display: block;
     width: 100%;
     padding: 0.875rem;
-    background-color: $primary-color;
+    background-color: color.adjust($primary-color, $lightness: -10%);
     color: white;
     border: none;
     border-radius: $border-radius;
@@ -150,7 +152,7 @@ $box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     text-align: center;
     
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: color.adjust($primary-color, $lightness: -20%);
     }
     
     &:focus {

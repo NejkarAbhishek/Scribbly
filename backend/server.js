@@ -16,9 +16,26 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Add route logging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
+  next();
+});
+
+// Add a test route to verify API is working
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend API is working!' });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/meetings", meetingRoutes);
+
+// Error handler middleware
+app.use((err, req, res, next) => {
+  console.error('Global error handler caught error:', err);
+  res.status(500).json({ message: err.message || 'An unexpected error occurred' });
+});
 
 const httpServer = http.createServer(app);
 
@@ -30,30 +47,36 @@ const io = new SocketIOServer(httpServer, {
 });
 
 io.on("connection", (socket) => {
+  console.log("New socket connection:", socket.id);
+  
   socket.on("joinMeeting", (meetingId) => {
     socket.join(meetingId);
+    console.log(`User ${socket.id} joined meeting ${meetingId}`);
     io.to(meetingId).emit("userJoined", socket.id);
   });
 
   socket.on("leaveMeeting", (meetingId) => {
     socket.leave(meetingId);
+    console.log(`User ${socket.id} left meeting ${meetingId}`);
     io.to(meetingId).emit("userLeft", socket.id);
   });
 
   socket.on("signal", ({ meetingId, data }) => {
     socket.to(meetingId).emit("signal", { from: socket.id, data });
   });
+  
+  socket.on("disconnect", () => {
+    console.log("Socket disconnected:", socket.id);
+  });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001; // Change port to 5001 to avoid conflicts
 
 mongoose
   .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/IdeaBoard", {
-    useNewUrlParser: true,
-    family: 4,
-    useUnifiedTopology: true
+    family: 4 // Use IPv4
   })
   .then(() => {
     httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("MongoDB connection error:", err));

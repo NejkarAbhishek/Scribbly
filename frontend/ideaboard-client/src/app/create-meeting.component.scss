@@ -45,6 +45,31 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
     color: $gray-color;
     margin: 0;
   }
+
+  .token-status {
+    margin-top: 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: $border-radius;
+    font-size: 0.9rem;
+    
+    p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      
+      i {
+        margin-right: 0.5rem;
+      }
+      
+      &.status-error {
+        color: $error-color;
+      }
+      
+      &.status-ok {
+        color: $success-color;
+      }
+    }
+  }
 }
 
 .create-meeting-form {
@@ -55,9 +80,9 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
     
     label {
       display: block;
-      margin-bottom: 0.5rem;
       font-weight: 500;
       color: $dark-color;
+      margin-bottom: 0.5rem;
     }
     
     .input-with-icon {
@@ -66,8 +91,14 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
       i {
         position: absolute;
         left: 1rem;
-        top: 1rem;
+        top: 0.9rem;
         color: $gray-color;
+      }
+      
+      &.textarea-container {
+        i {
+          top: 0.75rem;
+        }
       }
       
       input, textarea {
@@ -76,29 +107,21 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
         border: 1px solid $border-color;
         border-radius: $border-radius;
         font-size: 1rem;
-        transition: all 0.3s ease;
-        font-family: inherit;
+        transition: all 0.2s ease;
         
         &:focus {
           outline: none;
           border-color: $primary-color;
-          box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+          box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
         
         &::placeholder {
-          color: color.adjust($gray-color, $lightness: 20%);
+          color: $gray-color;
         }
       }
       
-      &.textarea-container {
-        i {
-          top: 1rem;
-        }
-        
-        textarea {
-          resize: vertical;
-          min-height: 100px;
-        }
+      textarea {
+        resize: vertical;
       }
     }
   }

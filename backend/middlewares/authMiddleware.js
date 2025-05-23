@@ -13,15 +13,15 @@ const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, "thisismynewsecret");
       req.user = await User.findById(decoded.id).select("-password");
       req.userId = decoded.id;
-      next();
+      return next();
     } catch (error) {
-      res.status(401).json({ message: "Not authorized, token failed" });
+      console.error('JWT verification error:', error);
+      return res.status(401).json({ message: "Not authorized, token failed" });
     }
   }
 
-  if (!token) {
-    res.status(401).json({ message: "Not authorized, no token" });
-  }
+  // If we reach here, no valid authorization header was found
+  return res.status(401).json({ message: "Not authorized, no token" });
 };
 
 export default protect;

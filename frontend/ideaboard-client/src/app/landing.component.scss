@@ -76,7 +76,7 @@ ul {
     border: 1px solid $primary-color;
     
     &:hover {
-      background-color: rgba($primary-color, 0.1);
+      background-color: color.adjust($primary-color, $lightness: 10%);
     }
   }
   
@@ -106,7 +106,7 @@ ul {
     padding: 16px 32px;
     
     &:hover {
-      background-color: darken($secondary-color, 10%);
+      background-color: color.adjust($secondary-color, $lightness: -10%);
     }
   }
 }

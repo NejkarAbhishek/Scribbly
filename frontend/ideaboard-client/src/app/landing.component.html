@@ -1,8 +1,8 @@
 <!-- Scribbly Landing Page -->
 <header class="header">
   <div class="container">
-    <div class="logo">
-      <img src="assets/images/logo.png" alt="Scribbly Logo">
+    <div class="logo gradient-text">
+      <i class="fas fa-chalkboard fa-2x"></i>
       <h1>Scribbly</h1>
     </div>
     <nav class="navbar">
@@ -17,19 +17,39 @@
 </header>
 
 <main>
-  <!-- Hero Section -->
+  <!-- Hero Section with Decorative SVG -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1>Where Ideas Come to Life</h1>
-        <p class="hero-description">Collaborate, brainstorm, and create together in real-time. Scribbly is your ultimate whiteboard platform for both professional projects and fun gaming sessions.</p>
-        <div class="hero-buttons">
+    <div class="hero-bg-shapes">
+      <svg width="700" height="700" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="350" cy="350" r="350" fill="url(#paint0_radial)" fill-opacity="0.18"/>
+        <defs>
+          <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientTransform="translate(350 350) scale(350)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#7c3aed"/>
+            <stop offset="1" stop-color="#4f46e5"/>
+          </radialGradient>
+        </defs>
+      </svg>
+      <svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="shape-bottom-right">
+        <circle cx="160" cy="160" r="160" fill="#4f46e5" fill-opacity="0.10"/>
+      </svg>
+    </div>
+    <div class="container hero-flex">
+      <div class="hero-content animate-fadein">
+        <h1 class="gradient-text">Where Ideas Come to Life</h1>
+        <p class="hero-description animate-fadein-delay">Collaborate, brainstorm, and create together in real-time. Scribbly is your ultimate whiteboard platform for both professional projects and fun gaming sessions.</p>
+        <div class="hero-buttons animate-fadein-delay2">
           <a routerLink="/register" class="btn btn-primary">Get Started</a>
           <a href="#features" class="btn btn-secondary">Learn More</a>
         </div>
       </div>
-      <div class="hero-image">
-        <img src="assets/images/hero-whiteboard.png" alt="Scribbly Whiteboard">
+      <div class="hero-visual animate-pop">
+        <div class="whiteboard-visual">
+          <div class="whiteboard-frame">
+            <i class="fas fa-pen-nib whiteboard-icon"></i>
+            <i class="fas fa-shapes whiteboard-icon"></i>
+            <i class="fas fa-comments whiteboard-icon"></i>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -38,36 +58,24 @@
   <section id="features" class="features">
     <div class="container">
       <h2 class="section-title">Why Choose Scribbly?</h2>
-      
       <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-pencil-alt"></i>
-          </div>
+        <div class="feature-card animate-up">
+          <div class="feature-icon gradient-text"><i class="fas fa-pencil-alt"></i></div>
           <h3>Real-time Collaboration</h3>
           <p>Draw, write, and create together with teammates or friends in real-time, no matter where you are.</p>
         </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-comments"></i>
-          </div>
+        <div class="feature-card animate-up-delay">
+          <div class="feature-icon gradient-text"><i class="fas fa-comments"></i></div>
           <h3>Integrated Chat</h3>
           <p>Discuss ideas while you work with our seamless built-in chat functionality.</p>
         </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-gamepad"></i>
-          </div>
+        <div class="feature-card animate-up-delay2">
+          <div class="feature-icon gradient-text"><i class="fas fa-gamepad"></i></div>
           <h3>Fun Gaming Mode</h3>
           <p>Switch to gaming mode for Gartic Phone-style drawing games with friends and family.</p>
         </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-briefcase"></i>
-          </div>
+        <div class="feature-card animate-up-delay3">
+          <div class="feature-icon gradient-text"><i class="fas fa-briefcase"></i></div>
           <h3>Professional Tools</h3>
           <p>Access powerful brainstorming and diagramming tools for your business needs.</p>
         </div>
@@ -80,9 +88,28 @@
     <div class="container">
       <h2 class="section-title">About Scribbly</h2>
       <p class="about-description">Scribbly is the versatile whiteboard platform that bridges the gap between professional collaboration tools and fun interactive experiences. Whether you're designing your next big project or playing games with friends, Scribbly provides the perfect canvas for your creativity.</p>
-      
-      <div class="about-image">
-        <img src="assets/images/collaboration.png" alt="Scribbly Collaboration">
+      <div class="about-visual animate-pop">
+        <div class="about-frame gradient-bg">
+          <i class="fas fa-users about-icon"></i>
+          <i class="fas fa-lightbulb about-icon"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial/Trust Section -->
+  <section class="trust">
+    <div class="container">
+      <h2 class="section-title">Trusted by Teams & Creators</h2>
+      <div class="testimonial-cards">
+        <div class="testimonial-card animate-up">
+          <p>“Scribbly has transformed our remote brainstorming sessions. The real-time tools are a game changer!”</p>
+          <span>- Priya, Product Manager</span>
+        </div>
+        <div class="testimonial-card animate-up-delay">
+          <p>“We love the gaming mode for team-building. It's fun and easy to use!”</p>
+          <span>- Alex, Team Lead</span>
+        </div>
       </div>
     </div>
   </section>
@@ -100,8 +127,8 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-content">
-      <div class="footer-logo">
-        <img src="assets/images/logo-small.png" alt="Scribbly Logo">
+      <div class="footer-logo gradient-text">
+        <i class="fas fa-chalkboard"></i>
         <p>Scribbly &copy; 2023</p>
       </div>
       <div class="footer-links">

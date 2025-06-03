@@ -79,10 +79,10 @@ export class SocketService {
     });
   }
 
-  onChat(): Observable<{ user: string; message: string }> {
+  onChat(): Observable<{ user: string; name?: string; message: string }> {
     return new Observable(observer => {
       if (this.socket) {
-        this.socket.on('chat', (msg: { user: string; message: string }) => observer.next(msg));
+        this.socket.on('chat', (msg: { user: string; name?: string; message: string }) => observer.next(msg));
       }
       return () => {
         if (this.socket) {
@@ -92,9 +92,9 @@ export class SocketService {
     });
   }
 
-  sendChat(message: string): void {
+  sendChat(data: { message: string; name: string }): void {
     if (this.socket) {
-      this.socket.emit('chat', message);
+      this.socket.emit('chat', data);
     }
   }
 }

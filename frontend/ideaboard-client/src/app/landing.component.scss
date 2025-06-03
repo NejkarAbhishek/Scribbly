@@ -30,10 +30,7 @@ body {
   padding: 0 20px;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
+img { display: none !important; }
 
 a {
   text-decoration: none;
@@ -160,8 +157,22 @@ ul {
   }
 }
 
-// Hero Section
+// Decorative SVG shapes for hero
+.hero-bg-shapes {
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  z-index: 0;
+  pointer-events: none;
+  svg {
+    position: absolute;
+    &:first-child { left: 0; top: 0; }
+    &.shape-bottom-right { right: -80px; bottom: -80px; left: auto; top: auto; }
+  }
+}
 .hero {
+  position: relative;
+  overflow: hidden;
   padding: 80px 0;
   background: linear-gradient(to bottom right, rgba(79, 70, 229, 0.05), rgba(124, 58, 237, 0.05));
   
@@ -299,15 +310,14 @@ ul {
   .footer-logo {
     display: flex;
     align-items: center;
-    
-    img {
-      height: 30px;
-      margin-right: 10px;
-    }
-    
-    p {
-      opacity: 0.8;
-    }
+    gap: 0.7rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  
+  .footer-logo .fa-chalkboard {
+    font-size: 1.5rem;
+    color: $primary-color;
   }
   
   .footer-links {
@@ -324,6 +334,94 @@ ul {
         opacity: 1;
       }
     }
+  }
+}
+
+// Animation classes
+.animate-fadein {
+  opacity: 0;
+  animation: fadeIn 1s 0.2s forwards;
+}
+.animate-fadein-delay {
+  opacity: 0;
+  animation: fadeIn 1s 0.6s forwards;
+}
+.animate-fadein-delay2 {
+  opacity: 0;
+  animation: fadeIn 1s 1s forwards;
+}
+.animate-pop {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: popIn 0.8s 0.5s forwards;
+}
+.animate-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: upIn 0.8s 0.3s forwards;
+}
+.animate-up-delay {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: upIn 0.8s 0.6s forwards;
+}
+.animate-up-delay2 {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: upIn 0.8s 0.9s forwards;
+}
+.animate-up-delay3 {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: upIn 0.8s 1.2s forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes popIn {
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes upIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Trust/Testimonials Section
+.trust {
+  padding: 60px 0 40px 0;
+  background: linear-gradient(to right, rgba(124,58,237,0.04), rgba(79,70,229,0.04));
+  .trust-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    img {
+      height: 40px;
+      opacity: 0.7;
+      filter: grayscale(1);
+      transition: opacity 0.3s;
+      &:hover { opacity: 1; filter: none; }
+    }
+  }
+  .testimonial-cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .testimonial-card {
+    background: white;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 24px rgba(79,70,229,0.08);
+    padding: 2rem 2.5rem;
+    max-width: 350px;
+    min-width: 250px;
+    text-align: left;
+    font-size: 1.1rem;
+    color: $dark-color;
+    p { margin-bottom: 1rem; }
+    span { color: $gray-color; font-size: 0.95rem; }
   }
 }
 
@@ -372,4 +470,76 @@ ul {
   .section-title {
     font-size: 2rem;
   }
+}
+
+// Hero visual (whiteboard icons)
+.hero-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+}
+.whiteboard-visual {
+  background: linear-gradient(135deg, rgba($primary-color,0.12), rgba($secondary-color,0.10));
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba($primary-color,0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.whiteboard-frame {
+  display: flex;
+  gap: 1.5rem;
+}
+.whiteboard-icon {
+  font-size: 2.5rem;
+  color: $primary-color;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba($primary-color,0.10);
+  padding: 0.7rem;
+  margin: 0 0.2rem;
+}
+
+// About visual
+.about-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.about-frame {
+  display: flex;
+  gap: 2.5rem;
+  background: linear-gradient(135deg, rgba($primary-color,0.10), rgba($secondary-color,0.10));
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba($secondary-color,0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+}
+.about-icon {
+  font-size: 2.5rem;
+  color: $secondary-color;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba($secondary-color,0.10);
+  padding: 0.7rem;
+  margin: 0 0.2rem;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+}
+.gradient-text {
+  background: linear-gradient(90deg, $primary-color 0%, $secondary-color 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 } 

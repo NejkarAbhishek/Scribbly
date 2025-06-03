@@ -12,120 +12,112 @@ $success-color: #10b981;
 $border-radius: 8px;
 $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
+.create-meeting-bg-shape {
+  position: fixed;
+  top: -120px;
+  left: -120px;
+  width: 700px;
+  height: 700px;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 60% 40%, rgba($primary-color,0.13) 0%, rgba($secondary-color,0.09) 100%);
+  border-radius: 50%;
+  filter: blur(8px);
+}
+
 .create-meeting-container {
   min-height: 100vh;
   background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .create-meeting-card {
-  background-color: white;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  background: rgba(255,255,255,0.85);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba($primary-color,0.10);
   width: 100%;
-  max-width: 700px;
+  max-width: 480px;
   overflow: hidden;
   margin-top: 2rem;
+  animation: popIn 0.8s 0.2s both;
 }
 
 .create-meeting-header {
-  padding: 2rem;
+  padding: 2rem 2rem 1.2rem 2rem;
   border-bottom: 1px solid $border-color;
-  
+  background: linear-gradient(90deg, rgba($primary-color,0.08) 0%, rgba($secondary-color,0.08) 100%);
   .page-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 700;
-    color: $dark-color;
     margin: 0 0 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    i { color: $primary-color; }
   }
-  
   .page-description {
     color: $gray-color;
     margin: 0;
   }
-
   .token-status {
     margin-top: 1rem;
     padding: 0.5rem 0.75rem;
     border-radius: $border-radius;
     font-size: 0.9rem;
-    
     p {
       margin: 0;
       display: flex;
       align-items: center;
-      
-      i {
-        margin-right: 0.5rem;
-      }
-      
-      &.status-error {
-        color: $error-color;
-      }
-      
-      &.status-ok {
-        color: $success-color;
-      }
+      i { margin-right: 0.5rem; }
+      &.status-error { color: $error-color; }
+      &.status-ok { color: $success-color; }
     }
   }
 }
 
 .create-meeting-form {
-  padding: 2rem;
-  
+  padding: 2rem 2rem 1.2rem 2rem;
   .form-group {
     margin-bottom: 1.5rem;
-    
     label {
       display: block;
       font-weight: 500;
       color: $dark-color;
       margin-bottom: 0.5rem;
     }
-    
     .input-with-icon {
       position: relative;
-      
       i {
         position: absolute;
         left: 1rem;
         top: 0.9rem;
-        color: $gray-color;
+        color: $primary-color;
+        opacity: 0.7;
       }
-      
-      &.textarea-container {
-        i {
-          top: 0.75rem;
-        }
-      }
-      
+      &.textarea-container i { top: 0.75rem; }
       input, textarea {
         width: 100%;
         padding: 0.75rem 1rem 0.75rem 2.5rem;
-        border: 1px solid $border-color;
+        border: 1.5px solid $border-color;
         border-radius: $border-radius;
         font-size: 1rem;
-        transition: all 0.2s ease;
-        
+        background: rgba($light-color, 0.7);
+        transition: all 0.2s;
         &:focus {
           outline: none;
           border-color: $primary-color;
-          box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+          box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.10);
         }
-        
-        &::placeholder {
-          color: $gray-color;
-        }
+        &::placeholder { color: $gray-color; }
       }
-      
-      textarea {
-        resize: vertical;
-      }
+      textarea { resize: vertical; }
     }
   }
-  
   .error-message {
     margin-bottom: 1.5rem;
     padding: 0.75rem 1rem;
@@ -134,35 +126,27 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
     color: $error-color;
     display: flex;
     align-items: center;
-    
-    i {
-      margin-right: 0.5rem;
-    }
+    i { margin-right: 0.5rem; }
   }
-  
   .btn-create {
     width: 100%;
-    padding: 0.875rem;
-    background-color: $primary-color;
+    padding: 0.95rem;
+    background: linear-gradient(90deg, $primary-color 0%, $secondary-color 100%);
     color: white;
     border: none;
     border-radius: $border-radius;
-    font-size: 1rem;
+    font-size: 1.08rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    i {
-      margin-right: 0.5rem;
-    }
-    
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px rgba($primary-color,0.10);
     &:hover:not(:disabled) {
-      background-color: color.adjust($primary-color, $lightness: -5%);
+      background: linear-gradient(90deg, $secondary-color 0%, $primary-color 100%);
     }
-    
     &:disabled {
       opacity: 0.7;
       cursor: not-allowed;
@@ -170,38 +154,65 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
   }
 }
 
-.create-meeting-tips {
-  background-color: rgba($primary-color, 0.05);
+.glass-tips {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 8px rgba($primary-color,0.07);
+  margin: 0 2rem 2rem 2rem;
   padding: 1.5rem 2rem;
   border-top: 1px solid $border-color;
-  
   h3 {
-    font-size: 1.25rem;
+    font-size: 1.18rem;
     font-weight: 600;
     margin: 0 0 1rem;
-    color: $dark-color;
+    color: $primary-color;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    i { color: $secondary-color; }
   }
-  
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    
     li {
       margin-bottom: 0.75rem;
       color: $gray-color;
       display: flex;
       align-items: center;
-      
       i {
         color: $success-color;
         margin-right: 0.75rem;
       }
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
+  }
+}
+
+// Animation
+.animate-pop {
+  opacity: 0;
+  transform: scale(0.97);
+  animation: popIn 0.8s 0.2s forwards;
+}
+@keyframes popIn {
+  to { opacity: 1; transform: scale(1); }
+}
+
+// Responsive
+@media (max-width: 600px) {
+  .create-meeting-card {
+    max-width: 98vw;
+    border-radius: 1.1rem;
+    margin-top: 0.5rem;
+  }
+  .create-meeting-header, .create-meeting-form {
+    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+  }
+  .glass-tips {
+    margin: 0 0.5rem 1rem 0.5rem;
+    padding: 1.1rem 0.7rem;
   }
 }
 

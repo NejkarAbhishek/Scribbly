@@ -119,6 +119,13 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
     this.socket.connect(token);
     this.socket.joinMeeting(this.meetingId);
     
+    // Store the socket ID after connecting
+    setTimeout(() => {
+      if (this.socket['socket'] && this.socket['socket'].id) {
+        localStorage.setItem('socketId', this.socket['socket'].id);
+      }
+    }, 500);
+    
     this.socket.onSignal().pipe(
       takeUntil(this.destroy$)
     ).subscribe(({ data }) => this.drawRemote(data));
@@ -127,7 +134,8 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe(msg => {
       this.chatLog.push({
-        ...msg,
+        user: msg.name || msg.user,
+        message: msg.message,
         timestamp: new Date()
       });
     });
@@ -243,13 +251,9 @@ export class WhiteboardComponent implements OnInit, OnDestroy {
   
   sendChat() {
     if (!this.chatMsg.trim()) return;
-    
-    this.socket.sendChat(this.chatMsg);
-    this.chatLog.push({ 
-      user: 'Me', 
-      message: this.chatMsg,
-      timestamp: new Date()
-    });
+    const mySocketId = localStorage.getItem('socketId');
+    const myName = localStorage.getItem('name') || 'Me';
+    this.socket.sendChat({ message: this.chatMsg, name: myName });
     this.chatMsg = '';
   }
   

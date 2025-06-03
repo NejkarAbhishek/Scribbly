@@ -65,6 +65,15 @@ io.on("connection", (socket) => {
     socket.to(meetingId).emit("signal", { from: socket.id, data });
   });
   
+  // Broadcast chat messages to all users in the meeting room
+  socket.on("chat", (data) => {
+    // Find the meeting room(s) this socket is in (excluding its own id room)
+    const rooms = Array.from(socket.rooms).filter(r => r !== socket.id);
+    rooms.forEach(room => {
+      io.to(room).emit("chat", { user: socket.id, name: data.name, message: data.message });
+    });
+  });
+
   socket.on("disconnect", () => {
     console.log("Socket disconnected:", socket.id);
   });

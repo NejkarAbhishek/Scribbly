@@ -13,6 +13,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   showNavbar = true;
+  currentRoute = '';
   
   constructor(public auth: AuthService, private router: Router) {}
   
@@ -23,12 +24,16 @@ export class AppComponent implements OnInit {
     // Test backend connection
     this.testBackendConnection();
     
-    // Hide navbar on whiteboard page
+    // Always show navbar
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.showNavbar = !event.url.includes('/whiteboard/');
+      this.currentRoute = event.url;
     });
+  }
+
+  isActive(route: string): boolean {
+    return this.currentRoute.startsWith(route);
   }
 
   logout() {

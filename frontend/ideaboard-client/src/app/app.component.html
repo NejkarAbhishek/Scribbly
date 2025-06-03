@@ -1,21 +1,19 @@
-<nav *ngIf="showNavbar" class="navbar">
+<nav class="navbar glass-nav">
   <div class="container">
     <div class="navbar-content">
-      <a routerLink="/" class="brand">
-        <img src="assets/images/logo.png" alt="Scribbly Logo" class="nav-logo">
+      <a routerLink="/" class="brand gradient-text">
+        <i class="fas fa-chalkboard"></i>
         <span>Scribbly</span>
       </a>
-      
       <div class="nav-links">
         <ng-container *ngIf="!auth.isLoggedIn()">
-          <a routerLink="/login" class="nav-link">Login</a>
-          <a routerLink="/register" class="nav-button">Sign Up</a>
+          <a routerLink="/login" class="nav-link" [class.active]="isActive('/login')">Login</a>
+          <a routerLink="/register" class="nav-button" [class.active]="isActive('/register')">Sign Up</a>
         </ng-container>
-        
         <ng-container *ngIf="auth.isLoggedIn()">
-          <a routerLink="/meetings" class="nav-link">My Meetings</a>
-          <a routerLink="/create" class="nav-link">Create Meeting</a>
-          <a routerLink="/join" class="nav-link">Join Meeting</a>
+          <a routerLink="/meetings" class="nav-link" [class.active]="isActive('/meetings')">My Meetings</a>
+          <a routerLink="/create" class="nav-link" [class.active]="isActive('/create')">Create Meeting</a>
+          <a routerLink="/join" class="nav-link" [class.active]="isActive('/join')">Join Meeting</a>
           <button (click)="logout()" class="nav-button logout">Logout</button>
         </ng-container>
       </div>

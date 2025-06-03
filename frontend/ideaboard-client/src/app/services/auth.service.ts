@@ -44,7 +44,8 @@ export class AuthService {
         console.log('Registration response:', res);
         if (res && res.token && this.isBrowser()) {
           localStorage.setItem('token', res.token);
-          console.log('Token saved to localStorage after registration');
+          if (res.name) localStorage.setItem('name', res.name);
+          console.log('Token and name saved to localStorage after registration');
           this.router.navigate(['/meetings']);
         } else {
           console.error('No token received in registration response', res);
@@ -61,7 +62,8 @@ export class AuthService {
         console.log('Login response:', res);
         if (res && res.token && this.isBrowser()) {
           localStorage.setItem('token', res.token);
-          console.log('Token saved to localStorage after login');
+          if (res.name) localStorage.setItem('name', res.name);
+          console.log('Token and name saved to localStorage after login');
           this.router.navigate(['/meetings']);
         } else {
           console.error('No token received in login response', res);

@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.currentRoute = event.url;
+      // Hide navbar on whiteboard route
+      this.showNavbar = !this.currentRoute.startsWith('/whiteboard');
     });
   }
 

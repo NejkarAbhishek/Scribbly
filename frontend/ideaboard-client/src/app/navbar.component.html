@@ -6,11 +6,11 @@
         <span>Scribbly</span>
       </a>
       <div class="nav-links">
-        <ng-container *ngIf="!auth.isLoggedIn()">
+        <ng-container *ngIf="!isLoggedIn">
           <a routerLink="/login" class="nav-link" [class.active]="isActive('/login')">Login</a>
           <a routerLink="/register" class="nav-button" [class.active]="isActive('/register')">Sign Up</a>
         </ng-container>
-        <ng-container *ngIf="auth.isLoggedIn()">
+        <ng-container *ngIf="isLoggedIn">
           <a routerLink="/meetings" class="nav-link" [class.active]="isActive('/meetings')">My Meetings</a>
           <a routerLink="/create" class="nav-link" [class.active]="isActive('/create')">Create Meeting</a>
           <a routerLink="/join" class="nav-link" [class.active]="isActive('/join')">Join Meeting</a>
@@ -19,6 +19,4 @@
       </div>
     </div>
   </div>
-</nav>
-
-<router-outlet></router-outlet>
+</nav> 

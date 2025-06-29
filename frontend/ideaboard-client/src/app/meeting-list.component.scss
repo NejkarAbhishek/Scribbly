@@ -13,64 +13,20 @@ $warning-color: #f59e0b;
 $border-radius: 8px;
 $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
-.meetings-container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+.meetings-page {
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+  margin-top: 64px;
+  position: relative;
+  z-index: 1;
 }
 
-.meetings-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  
-  .page-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: $dark-color;
-    margin: 0;
-  }
-  
-  .meetings-actions {
-    display: flex;
-    gap: 1rem;
-    
-    .btn-create, .btn-join {
-      padding: 0.625rem 1.25rem;
-      border-radius: $border-radius;
-      font-weight: 600;
-      font-size: 0.875rem;
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      
-      i {
-        margin-right: 0.5rem;
-      }
-    }
-    
-    .btn-create {
-      background-color: $primary-color;
-      color: white;
-      
-      &:hover {
-        background-color: color.adjust($primary-color, $lightness: -10%);
-      }
-    }
-    
-    .btn-join {
-      background-color: white;
-      color: $primary-color;
-      border: 1px solid $primary-color;
-      
-      &:hover {
-        background-color: rgba($primary-color, 0.1);
-      }
-    }
-  }
+.meetings-container {
+  padding: 4rem 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .alert {
@@ -95,6 +51,8 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
   display: flex;
   justify-content: center;
   padding: 3rem 0;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
   
   .empty-state {
     text-align: center;
@@ -132,6 +90,8 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
   box-shadow: $box-shadow;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
   
   &:hover {
     transform: translateY(-4px);
@@ -208,40 +168,49 @@ $box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.0
     }
     
     .btn-open {
-      background-color: $primary-color;
+      background: linear-gradient(90deg, $primary-color 0%, $secondary-color 100%);
       color: white;
+      box-shadow: 0 2px 8px rgba($primary-color, 0.15);
       
       &:hover {
-        background-color: color.adjust($primary-color, $lightness: -10%);
+        background: linear-gradient(90deg, $secondary-color 0%, $primary-color 100%);
+        transform: translateY(-1px);
       }
     }
     
     .btn-end {
       background-color: white;
       color: $danger-color;
-      border: 1px solid $danger-color;
+      border: 1.5px solid $danger-color;
+      box-shadow: 0 2px 8px rgba($danger-color, 0.08);
       
       &:hover {
-        background-color: rgba($danger-color, 0.1);
+        background-color: rgba($danger-color, 0.05);
+        transform: translateY(-1px);
       }
     }
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
-  .meetings-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    
-    .meetings-actions {
-      width: 100%;
-      
-      .btn-create, .btn-join {
-        flex: 1;
-        justify-content: center;
-      }
-    }
+  .meetings-page {
+    min-height: calc(100vh - 56px);
+    margin-top: 56px;
+  }
+
+  .meetings-container {
+    padding: 3rem 1rem 1rem;
   }
   
   .meeting-cards {

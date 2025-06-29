@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,18 @@ export class LoginComponent {
 
   submit() {
     this.error = '';
-    if (!this.email || !this.password) {
-      this.error = 'Email and password are required.';
+    if (!this.email.trim()) {
+      this.error = 'Email is required.';
+      return;
+    }
+    if (!this.password.trim()) {
+      this.error = 'Password is required.';
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email)) {
+      this.error = 'Please enter a valid email address.';
       return;
     }
     
@@ -29,7 +40,10 @@ export class LoginComponent {
       next: () => {
         this.router.navigate(['/meetings']);
       },
-      error: err => this.error = err.error?.message || 'Login failed'
+      error: (err: HttpErrorResponse) => { 
+        console.error('Login error:', err);
+        this.error = err.error?.message || 'Login failed. Please check your credentials.';
+      }
     });
   }
 }

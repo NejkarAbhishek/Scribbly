@@ -408,4 +408,18 @@ $box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   .chat-panel {
     width: 100%;
   }
+}
+
+:host ::ng-deep .toast-success .toast-message img,
+:host ::ng-deep .toast-success .toast-message .fa-check,
+:host ::ng-deep .toast-success .toast-message .fa-check-circle {
+  vertical-align: middle;
+  margin-right: 0.5em;
+  height: 1.2em;
+  width: 1.2em;
+  display: inline-block;
+}
+:host ::ng-deep .toast-message {
+  display: flex;
+  align-items: center;
 } 

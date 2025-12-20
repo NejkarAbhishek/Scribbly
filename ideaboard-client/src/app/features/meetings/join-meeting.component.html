@@ -1,0 +1,47 @@
+<!-- src/app/features/meetings/join-meeting.component.html -->
+<div class="page-container">
+  <div class="content-card">
+    <div class="card-header">
+      <h1 class="page-title">Join a meeting</h1>
+      <p class="page-subtitle">Enter the code to collaborate with your team</p>
+    </div>
+
+    <form (ngSubmit)="join()" class="join-form">
+      <div class="form-group">
+        <label for="meetingCode">Meeting Code</label>
+        <div class="input-wrapper">
+          <input [(ngModel)]="code" name="meetingCode" id="meetingCode" type="text" placeholder="e.g. abc-123-xyz"
+            required autocomplete="off" />
+        </div>
+      </div>
+
+      <div *ngIf="error" class="error-banner">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>{{ error }}</span>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-text" routerLink="/meetings">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Join Meeting</span>
+          <span *ngIf="isLoading"><i class="fas fa-circle-notch fa-spin"></i> Joining...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="info-card">
+    <div class="info-content">
+      <div class="info-icon">
+        <i class="fas fa-question-circle"></i>
+      </div>
+      <div class="info-text">
+        <h3>Where's my code?</h3>
+        <p>The meeting creator can share the code with you, or you can find it in your invitation.</p>
+      </div>
+    </div>
+    <div class="create-new">
+      <p>Don't have a code? <a routerLink="/create">Create a new meeting</a></p>
+    </div>
+  </div>
+</div>

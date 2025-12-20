@@ -1,0 +1,36 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo-wrapper">
+        <span class="brand-text">Scribbly</span>
+      </div>
+      <h1>Sign in</h1>
+      <p class="subtitle">to continue to Scribbly</p>
+    </div>
+
+    <form (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" required>
+      </div>
+
+      <div class="form-actions">
+        <a href="#" class="forgot-password">Forgot email?</a>
+      </div>
+
+      <div class="auth-footer">
+        <a routerLink="/register" class="create-account">Create account</a>
+        <button type="submit" class="btn btn-primary">Next</button>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        <i class="fas fa-exclamation-circle"></i> {{ error }}
+      </div>
+    </form>
+  </div>
+</div>

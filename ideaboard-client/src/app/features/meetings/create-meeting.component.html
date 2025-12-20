@@ -1,0 +1,57 @@
+<!-- src/app/create-meeting.component.html -->
+<div class="page-container">
+  <div class="content-card">
+    <div class="card-header">
+      <h1 class="page-title">Create a new meeting</h1>
+      <p class="page-subtitle">Set up a collaborative space for your team</p>
+    </div>
+
+    <div class="token-status" *ngIf="tokenStatus">
+      <div class="status-indicator" [class.success]="tokenStatus !== 'No token found'"
+        [class.error]="tokenStatus === 'No token found'">
+        <i class="fas" [ngClass]="tokenStatus === 'No token found' ? 'fa-exclamation-circle' : 'fa-check-circle'"></i>
+        <span>{{ tokenStatus }}</span>
+      </div>
+    </div>
+
+    <form (ngSubmit)="create()" class="create-form">
+      <div class="form-group">
+        <label for="meetingName">Meeting Name</label>
+        <div class="input-wrapper">
+          <input [(ngModel)]="name" name="meetingName" id="meetingName" type="text" placeholder="e.g. Q4 Planning"
+            required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="meetingDescription">Description <span class="optional">(Optional)</span></label>
+        <div class="input-wrapper">
+          <textarea [(ngModel)]="description" name="meetingDescription" id="meetingDescription"
+            placeholder="Add a brief description..." rows="3"></textarea>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="error-banner">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>{{ error }}</span>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-text" routerLink="/meetings">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Create Meeting</span>
+          <span *ngIf="isLoading"><i class="fas fa-circle-notch fa-spin"></i> Creating...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="tips-card">
+    <h3><i class="fas fa-lightbulb"></i> Pro Tips</h3>
+    <ul>
+      <li>Share the code securely with your team</li>
+      <li>Use the chat to keep everyone aligned</li>
+      <li>Export your board when you're done</li>
+    </ul>
+  </div>
+</div>

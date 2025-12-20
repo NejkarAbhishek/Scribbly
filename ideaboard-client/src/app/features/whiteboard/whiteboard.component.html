@@ -1,0 +1,107 @@
+<!-- src/app/features/whiteboard/whiteboard.component.html -->
+<div class="whiteboard-wrapper">
+  <canvas #canvas></canvas>
+
+  <!-- Top Navigation Bar -->
+  <header class="board-header">
+    <div class="header-left">
+      <a routerLink="/meetings" class="nav-icon-btn" title="Back to Meetings">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="meeting-details">
+        <h1 class="meeting-title">{{ meetingName }}</h1>
+        <div class="meeting-code-badge" (click)="copyMeetingCode()" title="Click to Copy Code">
+          <span class="code-label">Code:</span>
+          <span class="code-value">{{ meetingCode }}</span>
+          <i class="far fa-copy"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button class="nav-icon-btn chat-trigger" (click)="toggleChat()" [class.active]="showChat" title="Team Chat">
+        <i class="fas fa-comment-alt"></i>
+        <span class="notification-dot" *ngIf="false"></span> <!-- Placeholder for unread -->
+      </button>
+      <button class="btn-share" (click)="copyMeetingCode()">
+        <i class="fas fa-user-plus"></i> Share
+      </button>
+      <button class="nav-icon-btn danger" (click)="leaveMeeting()" title="Leave Meeting">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Floating Toolbar -->
+  <div class="tools-dock">
+    <div class="dock-panel">
+      <!-- Primary Tools -->
+      <div class="tool-section">
+        <button class="tool-btn" [class.active]="activeTool === 'brush'" (click)="setTool('brush')" title="Brush">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button class="tool-btn" [class.active]="activeTool === 'eraser'" (click)="setTool('eraser')" title="Eraser">
+          <i class="fas fa-eraser"></i>
+        </button>
+      </div>
+
+      <div class="divider-vertical"></div>
+
+      <!-- Properties -->
+      <div class="tool-section">
+        <div class="color-picker-wrapper" title="Color">
+          <input type="color" [(ngModel)]="color" (change)="setColor(color)" class="color-input">
+          <div class="color-preview" [style.backgroundColor]="color"></div>
+        </div>
+
+        <div class="size-control" title="Brush Size">
+          <i class="fas fa-circle" [style.transform]="'scale(' + (size/20) + ')'"></i>
+          <input type="range" [(ngModel)]="size" min="2" max="30" class="size-slider">
+        </div>
+      </div>
+
+      <div class="divider-vertical"></div>
+
+      <!-- Actions -->
+      <div class="tool-section">
+        <button class="tool-btn danger-hover" (click)="clearCanvas()" title="Clear Board">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Sidebar -->
+  <aside class="chat-sidebar" [class.open]="showChat">
+    <div class="chat-header">
+      <h3>Team Chat</h3>
+      <button class="close-chat" (click)="toggleChat()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="chat-body">
+      <div *ngIf="chatLog.length === 0" class="empty-state">
+        <div class="empty-icon"><i class="far fa-comments"></i></div>
+        <p>No messages yet.<br>Start the conversation!</p>
+      </div>
+
+      <div *ngFor="let msg of chatLog" class="chat-message" [class.own-message]="msg.user === 'You'">
+        <div class="message-meta">
+          <span class="user-name">{{ msg.user }}</span>
+          <span class="msg-time">{{ msg.timestamp | date:'shortTime' }}</span>
+        </div>
+        <div class="message-bubble">
+          {{ msg.message }}
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <div class="input-group">
+        <input [(ngModel)]="chatMsg" (keyup.enter)="sendChat()" placeholder="Type a message..." autocomplete="off">
+        <button (click)="sendChat()" [disabled]="!chatMsg.trim()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+</div>

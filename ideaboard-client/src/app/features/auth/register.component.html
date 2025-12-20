@@ -1,0 +1,50 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo-wrapper">
+        <span class="brand-text">Scribbly</span>
+      </div>
+      <h1>Create your account</h1>
+      <p class="subtitle">to start collaborating</p>
+    </div>
+
+    <form (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" [(ngModel)]="name" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" required>
+      </div>
+
+      <div class="form-group-row">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword"
+            class="form-control" required>
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <input type="checkbox" id="agree" name="agree" required>
+        <label for="agree">I agree to the Terms and Privacy Policy</label>
+      </div>
+
+      <div class="auth-footer">
+        <a routerLink="/login" class="create-account">Sign in instead</a>
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        <i class="fas fa-exclamation-circle"></i> {{ error }}
+      </div>
+    </form>
+  </div>
+</div>

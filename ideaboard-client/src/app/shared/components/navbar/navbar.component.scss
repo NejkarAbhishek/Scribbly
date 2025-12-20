@@ -1,0 +1,101 @@
+/* Google Store Navbar Styles */
+.google-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    padding: 0 var(--spacing-lg);
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--font-family-brand);
+    font-weight: 500;
+    font-size: 1.375rem;
+}
+
+.brand-text {
+    font-weight: 500;
+}
+
+.navbar-center {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &.active {
+        color: var(--md-sys-color-primary);
+    }
+}
+
+.nav-link:hover {
+    color: var(--md-sys-color-primary);
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-primary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background: rgba(var(--md-sys-color-primary-rgb), 0.04);
+        border-color: var(--md-sys-color-primary);
+    }
+}
+
+.btn-sm {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 0.875rem;
+}

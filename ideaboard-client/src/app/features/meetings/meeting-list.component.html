@@ -1,0 +1,70 @@
+<div class="dashboard-page">
+  <div class="container">
+    <!-- Header -->
+    <div class="dashboard-header flex justify-between items-center mb-4">
+      <div>
+        <h2>My Meetings</h2>
+        <p class="text-secondary">Manage and join your collaborative sessions</p>
+      </div>
+      <div class="flex gap-2">
+        <button routerLink="/join" class="btn btn-outline">
+          <i class="fas fa-sign-in-alt"></i> Join Meeting
+        </button>
+        <button routerLink="/create" class="btn btn-primary">
+          <i class="fas fa-plus"></i> New Meeting
+        </button>
+      </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div *ngIf="error" class="alert-error mb-4">
+      <i class="fas fa-exclamation-circle"></i> {{ error }}
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="meetings.length === 0 && !loading" class="empty-state text-center">
+      <div class="empty-icon-container">
+        <i class="fas fa-chalkboard"></i>
+      </div>
+      <h3>No meetings yet</h3>
+      <p>Create your first meeting to start collaborating!</p>
+      <button routerLink="/create" class="btn btn-primary mt-4">Create Meeting</button>
+    </div>
+
+    <!-- Meeting Grid -->
+    <div *ngIf="meetings.length > 0" class="grid grid-cols-3">
+      <div *ngFor="let meeting of meetings" class="card meeting-card">
+        <div class="meeting-card-header">
+          <h3>{{ meeting.name }}</h3>
+          <span class="status-badge active" *ngIf="meeting.isActive">Active</span>
+        </div>
+        <p class="meeting-desc">{{ meeting.description || 'No description provided.' }}</p>
+
+        <div class="meeting-meta">
+          <div class="meta-item">
+            <i class="fas fa-hashtag"></i>
+            <span>{{ meeting.code }}</span>
+          </div>
+          <div class="meta-item">
+            <i class="far fa-calendar"></i>
+            <span>{{ meeting.createdAt | date:'mediumDate' }}</span>
+          </div>
+        </div>
+
+        <div class="meeting-actions flex gap-2 mt-4">
+          <button (click)="open(meeting._id)" class="btn btn-primary flex-1">Open</button>
+          <button (click)="end(meeting._id)" class="btn btn-outline flex-1"
+            style="border-color: var(--md-sys-color-error); color: var(--md-sys-color-error);">End</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More -->
+    <div *ngIf="hasMore" class="flex justify-center mt-4">
+      <button (click)="load(true)" class="btn btn-outline" [disabled]="loading">
+        <span *ngIf="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</span>
+        <span *ngIf="!loading">Load More</span>
+      </button>
+    </div>
+  </div>
+</div>

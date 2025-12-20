@@ -1,0 +1,18 @@
+<header class="google-navbar">
+    <div class="navbar-container">
+        <div class="navbar-left">
+            <a routerLink="/meetings" class="navbar-brand">
+                <span class="brand-text">Scribbly</span>
+            </a>
+        </div>
+        <nav class="navbar-center">
+            <a routerLink="/meetings" class="nav-link" routerLinkActive="active">Meetings</a>
+        </nav>
+        <div class="navbar-right">
+            <div class="user-profile" *ngIf="auth.currentUser$ | async as user">
+                <span class="user-name">{{ user.name }}</span>
+            </div>
+            <button (click)="logout()" class="btn btn-outline btn-sm">Logout</button>
+        </div>
+    </div>
+</header>

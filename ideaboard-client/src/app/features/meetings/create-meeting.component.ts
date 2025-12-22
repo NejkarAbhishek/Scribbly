@@ -18,7 +18,7 @@ export class CreateMeetingComponent implements OnInit {
   description = '';
   error = '';
   isLoading = false;
-  tokenStatus = '';
+
 
   constructor(
     private meetingService: MeetingService,
@@ -27,13 +27,7 @@ export class CreateMeetingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Debug token status
     const token = this.authService.getToken();
-    this.tokenStatus = token ? 'Token exists' : 'No token found';
-    console.log('CreateMeeting Component - Token status:', this.tokenStatus);
-    if (token) {
-      console.log('Token value (first 15 chars):', token.substring(0, 15) + '...');
-    }
   }
 
   create() {
@@ -43,7 +37,7 @@ export class CreateMeetingComponent implements OnInit {
       return;
     }
 
-    // Check token again before submit
+
     const token = this.authService.getToken();
     if (!token) {
       this.error = 'You need to be logged in. Please log in again.';
@@ -55,17 +49,10 @@ export class CreateMeetingComponent implements OnInit {
     this.meetingService.createMeeting(this.name, this.description)
       .subscribe({
         next: ({ id, code }) => {
-          console.log(`Meeting created with code: ${code}`);
           this.isLoading = false;
           this.router.navigate(['/whiteboard', id]);
         },
         error: (err: HttpErrorResponse) => {
-          console.error('Error creating meeting:', err);
-          console.error('Error status:', err.status);
-          console.error('Error status text:', err.statusText);
-          console.error('Error message:', err.message);
-          console.error('Full error response:', err.error);
-
           this.error = err.error?.message || 'Failed to create meeting';
           this.isLoading = false;
         }

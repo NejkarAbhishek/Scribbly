@@ -1,18 +1,24 @@
 <header class="google-navbar">
     <div class="navbar-container">
         <div class="navbar-left">
-            <a routerLink="/meetings" class="navbar-brand">
+            <a routerLink="/" class="navbar-brand">
                 <span class="brand-text">Scribbly</span>
             </a>
         </div>
-        <nav class="navbar-center">
+        <nav class="navbar-center" *ngIf="auth.currentUser$ | async">
             <a routerLink="/meetings" class="nav-link" routerLinkActive="active">Meetings</a>
         </nav>
         <div class="navbar-right">
-            <div class="user-profile" *ngIf="auth.currentUser$ | async as user">
-                <span class="user-name">{{ user.name }}</span>
-            </div>
-            <button (click)="logout()" class="btn btn-outline btn-sm">Logout</button>
+            <ng-container *ngIf="auth.currentUser$ | async as user; else loginTemplate">
+                <div class="user-profile">
+                    <span class="user-name">{{ user.name }}</span>
+                </div>
+                <button (click)="logout()" class="btn btn-outline btn-sm">Logout</button>
+            </ng-container>
+            <ng-template #loginTemplate>
+                <a routerLink="/login" class="nav-link">Login</a>
+                <a routerLink="/register" class="btn btn-primary btn-sm">Sign Up</a>
+            </ng-template>
         </div>
     </div>
 </header>

@@ -1,4 +1,4 @@
-// src/app/meeting-list.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';

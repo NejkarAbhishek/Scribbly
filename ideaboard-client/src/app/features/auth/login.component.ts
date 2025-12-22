@@ -17,7 +17,11 @@ export class LoginComponent {
   password = '';
   error = '';
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['/meetings']);
+    }
+  }
 
   submit() {
     this.error = '';

@@ -34,27 +34,26 @@ export class WhiteboardComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   ctx!: CanvasRenderingContext2D;
 
-  // Drawing state
+
   drawing = false;
   color = '#000000';
   size = 5;
   prevX = 0;
   prevY = 0;
 
-  // Tools
-  activeTool = 'brush'; // 'brush', 'eraser', 'text', 'shape'
+  activeTool = 'brush';
   colors: string[] = ['#000000', '#ffffff', '#f44336', '#2196f3', '#4caf50', '#ffeb3b', '#ff9800', '#9c27b0'];
 
-  // UI state
+
   showChat = false;
   isMobileView = false;
 
-  // Meeting info
+
   meetingId!: string;
   meetingCode = '';
   meetingName = '';
 
-  // Chat
+
   chatMsg = '';
   chatLog: ChatMessage[] = [];
 
@@ -76,10 +75,10 @@ export class WhiteboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.checkScreenSize();
     this.getMeetingInfo();
 
-    // Throttle draw events to reduce network traffic
+
     this.drawSubject.pipe(
       takeUntil(this.destroy$),
-      throttleTime(10) // 10ms throttle
+      throttleTime(10)
     ).subscribe(data => {
       this.socket.sendSignal(this.meetingId, data);
     });
@@ -208,7 +207,7 @@ export class WhiteboardComponent implements OnInit, OnDestroy, AfterViewInit {
       type: 'line'
     };
 
-    // Emit to subject for throttling
+
     this.drawSubject.next(drawData);
 
     this.prevX = x;

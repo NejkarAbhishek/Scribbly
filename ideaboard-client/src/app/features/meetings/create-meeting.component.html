@@ -6,13 +6,7 @@
       <p class="page-subtitle">Set up a collaborative space for your team</p>
     </div>
 
-    <div class="token-status" *ngIf="tokenStatus">
-      <div class="status-indicator" [class.success]="tokenStatus !== 'No token found'"
-        [class.error]="tokenStatus === 'No token found'">
-        <i class="fas" [ngClass]="tokenStatus === 'No token found' ? 'fa-exclamation-circle' : 'fa-check-circle'"></i>
-        <span>{{ tokenStatus }}</span>
-      </div>
-    </div>
+
 
     <form (ngSubmit)="create()" class="create-form">
       <div class="form-group">

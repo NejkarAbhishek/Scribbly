@@ -136,9 +136,9 @@ canvas {
 .dock-panel {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   background: var(--md-sys-color-surface);
-  padding: 8px 24px;
+  padding: 12px 32px;
   border-radius: 100px;
   box-shadow: var(--elevation-3);
   border: 1px solid var(--md-sys-color-outline-variant);
@@ -147,12 +147,12 @@ canvas {
 .tool-section {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .divider-vertical {
   width: 1px;
-  height: 24px;
+  height: 32px;
   background-color: var(--md-sys-color-outline-variant);
 }
 
@@ -215,8 +215,8 @@ canvas {
 .size-control {
   display: flex;
   align-items: center;
-  gap: 8px;
-  width: 100px;
+  gap: 12px;
+  width: 140px;
 }
 
 .size-control i {

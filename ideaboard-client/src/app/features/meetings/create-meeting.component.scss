@@ -37,32 +37,7 @@
   margin: 0;
 }
 
-/* Status Indicator */
-.token-status {
-  margin-bottom: 24px;
-  display: flex;
-  justify-content: center;
-}
 
-.status-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: 100px;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.status-indicator.success {
-  background-color: rgba(15, 157, 88, 0.1);
-  color: #0F9D58;
-}
-
-.status-indicator.error {
-  background-color: rgba(219, 68, 55, 0.1);
-  color: #DB4437;
-}
 
 /* Form Styles */
 .create-form {

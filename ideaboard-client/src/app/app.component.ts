@@ -26,8 +26,14 @@ export class AppComponent implements OnInit {
     ).subscribe((event: any) => {
       const url = event.urlAfterRedirects || event.url;
       // Hide navbar on landing page ('/') and whiteboard
-      this.showNavbar = url !== '/' &&
-        !url.startsWith('/whiteboard');
+      this.showNavbar = url !== '/' && !url.startsWith('/whiteboard');
+
+      // Apply zoom to all pages except whiteboard
+      if (url.startsWith('/whiteboard')) {
+        document.body.classList.remove('zoomed-layout');
+      } else {
+        document.body.classList.add('zoomed-layout');
+      }
     });
   }
 

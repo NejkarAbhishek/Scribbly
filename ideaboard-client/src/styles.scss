@@ -1,27 +1,21 @@
-/* Google Material You Inspired Theme */
 @use 'ngx-toastr/toastr' as *;
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap');
 
 :root {
-  /* Material You Palette - Calm & Dynamic */
   --md-sys-color-primary: #0b57d0;
-  /* Google Blue */
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #d3e3fd;
   --md-sys-color-on-primary-container: #041e49;
 
   --md-sys-color-secondary: #c2e7ff;
-  /* Soft Blue */
   --md-sys-color-on-secondary: #001d35;
   --md-sys-color-secondary-container: #c2e7ff;
   --md-sys-color-on-secondary-container: #001d35;
 
   --md-sys-color-tertiary: #e0f2f1;
-  /* Soft Teal */
   --md-sys-color-on-tertiary: #00201e;
 
   --md-sys-color-background: #f8f9fa;
-  /* Very Light Gray */
   --md-sys-color-on-background: #1f1f1f;
 
   --md-sys-color-surface: #ffffff;
@@ -34,16 +28,13 @@
 
   --md-sys-color-error: #ba1a1a;
 
-  /* Typography */
   --font-family-brand: 'Google Sans', 'Roboto', sans-serif;
   --font-family-body: 'Roboto', sans-serif;
 
-  /* Elevation - Soft & Diffused */
   --elevation-1: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
   --elevation-2: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
   --elevation-3: 0 4px 8px 3px rgba(60, 64, 67, 0.15), 0 1px 3px 0 rgba(60, 64, 67, 0.3);
 
-  /* Shape - Large Radii */
   --shape-corner-xs: 8px;
   --shape-corner-sm: 12px;
   --shape-corner-md: 16px;
@@ -51,15 +42,15 @@
   --shape-corner-xl: 32px;
   --shape-corner-full: 9999px;
 
-  /* Spacing */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
   --spacing-xxl: 64px;
-  /* Larger spacing for airy feel */
 }
+
+
 
 body {
   font-family: var(--font-family-body);
@@ -68,6 +59,10 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+}
+
+body.zoomed-layout {
+  zoom: 0.9;
 }
 
 h1,
@@ -101,14 +96,12 @@ h3 {
   font-weight: 400;
 }
 
-/* Buttons - Pill Shaped */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0 32px;
   height: 48px;
-  /* Taller touch targets */
   border-radius: var(--shape-corner-full);
   font-family: var(--font-family-brand);
   font-size: 1rem;
@@ -143,10 +136,8 @@ h3 {
   border-color: var(--md-sys-color-primary);
 }
 
-/* Cards - Glassmorphism & Soft */
 .card {
   background-color: rgba(255, 255, 255, 0.8);
-  /* Slight transparency */
   backdrop-filter: blur(10px);
   border-radius: var(--shape-corner-lg);
   padding: var(--spacing-xl);
@@ -161,7 +152,6 @@ h3 {
   background-color: rgba(255, 255, 255, 0.95);
 }
 
-/* Inputs */
 .form-control {
   width: 100%;
   padding: 16px 20px;
@@ -181,10 +171,8 @@ h3 {
   box-shadow: 0 0 0 2px var(--md-sys-color-primary);
 }
 
-/* Utilities */
 .container {
   max-width: 1440px;
-  /* Wider container */
   margin: 0 auto;
   padding: 0 var(--spacing-xl);
 }
@@ -233,7 +221,6 @@ h3 {
   width: 100%;
 }
 
-/* Grid System */
 .grid {
   display: grid;
   gap: var(--spacing-lg);

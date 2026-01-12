@@ -91,92 +91,278 @@
   }
 }
 
-/* Hero Section */
+/* Zoom-like Hero Section */
 .hero-section {
   position: relative;
-  padding: 120px 0 80px;
+  padding: 140px 0 60px;
+  /* Reduced bottom padding */
   overflow: hidden;
-  /* Use the generated hero background */
-  background: url('/assets/images/hero_bg_new.png') no-repeat center center;
-  background-size: cover;
-  min-height: 90vh;
+  background-color: #00053a;
+  /* Deep Blue Gradient like Zoom */
+  background: radial-gradient(circle at 50% -20%, #001ebb 0%, #00053a 60%, #000000 100%);
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  /* top align to allow carousel to sit at bottom */
 }
 
 .hero-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-xxl);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  z-index: 1;
+  gap: 48px;
+  z-index: 10;
+  width: 100%;
+  max-width: 100%;
+  /* Full width for carousel */
+  padding: 0;
+  /* Remove default padding for full width carousel */
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-title {
   font-size: 4.5rem;
   line-height: 1.1;
-  margin-bottom: var(--spacing-lg);
-  color: var(--md-sys-color-on-surface);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #0b57d0 0%, #a4c8ff 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: -1px;
+  font-family: 'Google Sans', sans-serif;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
-  color: var(--md-sys-color-on-surface-variant);
-  margin-bottom: var(--spacing-xl);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
   line-height: 1.6;
+  max-width: 650px;
 }
 
 .hero-actions {
   display: flex;
-  gap: var(--spacing-md);
-}
-
-.hero-visual {
-  display: flex;
+  gap: 16px;
   justify-content: center;
+  width: 100%;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(20px);
-  border-radius: var(--shape-corner-xl);
-  padding: var(--spacing-lg);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: var(--elevation-3);
-}
+.btn-primary-pill {
+  background-color: #0b5cff;
+  /* Vibrant Blue */
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  /* Pill shape */
+  padding: 0 32px;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
 
-.hero-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--shape-corner-lg);
-}
-
-.floating {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
+  &:hover {
+    background-color: #1e6aff;
+    transform: translateY(-2px);
   }
+}
 
-  50% {
-    transform: translateY(-20px);
+.btn-secondary-pill {
+  background-color: #ffffff;
+  color: #00053a;
+  /* Dark Text */
+  border: none;
+  border-radius: 50px;
+  /* Pill shape */
+  padding: 0 32px;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+  }
+}
+
+/* Infinite Rolling Carousel */
+.hero-carousel-wrapper {
+  width: 100%;
+  overflow: hidden;
+  margin-top: auto;
+  /* Push to bottom if flex container has space */
+  padding: 40px 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.hero-carousel {
+  width: 100%;
+  display: flex;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  animation: scroll 40s linear infinite;
+  /* Width will be determined by content, but we have 3 sets */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
 
   100% {
-    transform: translateY(0px);
+    transform: translateX(calc(-100% / 3 - 8px));
+  }
+
+  /* Scroll one full set width (approx) */
+  /* Note: Calculation needs to be precise based on number of items. 
+     Better approach: translate simply by percentage of the track if we know the track structure. 
+     If track has 3 identical sets, we scroll -33.33%. 
+  */
+}
+
+/* Adjusted Keyframe for smoother loop with flex gap */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-33.333% - 8px));
+  }
+
+  /* Adjust for gap? No, standard -33.33% is usually fine if content is seamlessly tiling */
+}
+
+/* Actually, simpler math: 
+   We have 15 cards total (3 sets of 5). 
+   We want to move by 5 cards + 5 gaps.
+   Let's refine this. 
+   If we use percentage, it's relative to the track width.
+   Track width = (CardWidth + Gap) * 15.
+   We want to move (CardWidth + Gap) * 5.
+   So move 1/3 of the width. 
+   transform: translateX(-33.3333%);
+*/
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-33.3333%);
+  }
+}
+
+.carousel-card {
+  flex: 0 0 auto;
+  width: 260px;
+  height: 380px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    z-index: 5;
+  }
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #f1f3f4;
+  /* Skeleton color */
+}
+
+.carousel-card span {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 600;
+  color: #202124;
+  font-size: 0.9375rem;
+  letter-spacing: 0.2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.carousel-card:hover span {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 100px 0 40px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .carousel-card {
+    width: 200px;
+    height: 300px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-primary-pill,
+  .btn-secondary-pill {
+    width: 100%;
+    max-width: 300px;
   }
 }
 
@@ -240,19 +426,23 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background-color: var(--md-sys-color-tertiary);
+  background-color: rgba(11, 92, 255, 0.1);
+  /* Light blue bg */
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--spacing-lg);
   font-size: 2rem;
-  color: var(--md-sys-color-on-tertiary);
+  color: #0B5CFF;
+  /* Vibrant blue icon */
 }
 
 .feature-card h3 {
   margin-bottom: var(--spacing-sm);
   font-size: 1.5rem;
   font-weight: 500;
+  color: #00053D;
+  /* Deep navy text for headings */
 }
 
 .feature-card p {
@@ -266,10 +456,32 @@
 }
 
 .cta-card {
-  background: linear-gradient(135deg, #d3e3fd 0%, #f1f3f4 100%);
+  background: radial-gradient(circle at 50% -20%, #001ebb 0%, #00053a 60%, #000000 100%);
+  /* Match hero gradient */
+  /* Blue gradient */
   border: none;
   border-radius: var(--shape-corner-xl);
   padding: 80px;
+  color: #ffffff;
+  /* White text for CTA */
+}
+
+.cta-card h2 {
+  color: #ffffff;
+}
+
+.cta-card p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cta-card .btn-primary {
+  background-color: #ffffff;
+  color: #0B5CFF;
+
+  &:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+  }
 }
 
 /* Google Store Footer Styles */

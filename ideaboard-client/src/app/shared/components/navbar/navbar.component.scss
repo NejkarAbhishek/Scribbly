@@ -1,7 +1,6 @@
 /* Google Store Navbar Styles */
 .google-navbar {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1000;
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -10,6 +9,48 @@
     height: 64px;
     display: flex;
     align-items: center;
+
+    &.dark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: transparent;
+        backdrop-filter: none;
+        border-bottom: none;
+
+        .navbar-brand,
+        .nav-link,
+        .user-name {
+            color: #ffffff;
+        }
+
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-outline {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                border-color: #ffffff;
+            }
+        }
+
+        /* Inverted Primary Button for Dark Theme */
+        ::ng-deep .btn-primary {
+            background-color: #ffffff;
+            color: #0B5CFF;
+            border: none;
+
+            &:hover {
+                background-color: #f0f4f8;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+        }
+    }
 }
 
 .navbar-container {

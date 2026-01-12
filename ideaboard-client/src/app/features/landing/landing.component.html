@@ -1,41 +1,90 @@
-<header class="google-navbar">
-  <div class="navbar-container">
-    <div class="navbar-left">
-      <a routerLink="/" class="navbar-brand">
-        <span class="brand-text">Scribbly</span>
-      </a>
-    </div>
-    <nav class="navbar-center">
-      <a href="#features" class="nav-link">Whiteboard</a>
-      <a href="#features" class="nav-link">Collaboration</a>
-      <a href="#features" class="nav-link">Pricing</a>
-      <a href="#features" class="nav-link">Enterprise</a>
-    </nav>
-    <div class="navbar-right">
-      <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
-      <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
-      <a routerLink="/login" class="nav-link">Login</a>
-      <a routerLink="/register" class="btn btn-primary btn-sm">Sign Up</a>
-    </div>
-  </div>
-</header>
+<app-navbar theme="dark"></app-navbar>
 
 <main>
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="container hero-container">
       <div class="hero-content">
-        <h1 class="hero-title">Create. Collaborate. <span class="gradient-text">Imagine.</span></h1>
-        <p class="hero-subtitle">Scribbly is your creative playground. Whiteboard, diagram, and collaborate with your
-          team in real-time. Simple, fast, and beautiful.</p>
+        <h1 class="hero-title">Find out what's possible<br>when work connects</h1>
+        <p class="hero-subtitle">Bring teams together, reimagine workspaces, engage new audiences, and delight your
+          customers — all on the Scribbly platform you know and love.</p>
         <div class="hero-actions">
-          <a routerLink="/register" class="btn btn-primary">Start for Free</a>
-          <a href="#features" class="btn btn-outline">Learn More</a>
+          <a routerLink="/register" class="btn btn-primary-pill">Start for Free</a>
+          <a href="#features" class="btn btn-secondary-pill">Contact Sales</a>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="glass-card floating">
-          <img src="assets/images/hero_people_whiteboard.png" alt="Collaboration" class="hero-img">
+
+      <!-- Infinite Rolling Carousel -->
+      <div class="hero-carousel-wrapper">
+        <div class="hero-carousel">
+          <!-- Slide Track (Duplicated for infinite scroll) -->
+          <div class="carousel-track">
+            <!-- Set 1 -->
+            <div class="carousel-card">
+              <img src="assets/images/carousel/meeting.png" alt="Meetings">
+              <span>Virtual Connect</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/whiteboard.png" alt="Whiteboard">
+              <span>Infinite Canvas</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/chat.png" alt="Team Chat">
+              <span>Team Sync</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/docs.png" alt="Docs">
+              <span>Shared Notes</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/mobile.png" alt="Mobile">
+              <span>Anywhere Access</span>
+            </div>
+
+            <!-- Set 2 (Duplicate) -->
+            <div class="carousel-card">
+              <img src="assets/images/carousel/meeting.png" alt="Meetings">
+              <span>Virtual Connect</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/whiteboard.png" alt="Whiteboard">
+              <span>Infinite Canvas</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/chat.png" alt="Team Chat">
+              <span>Team Sync</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/docs.png" alt="Docs">
+              <span>Shared Notes</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/mobile.png" alt="Mobile">
+              <span>Anywhere Access</span>
+            </div>
+
+            <!-- Set 3 (Duplicate for safety on wide screens) -->
+            <div class="carousel-card">
+              <img src="assets/images/carousel/meeting.png" alt="Meetings">
+              <span>Virtual Connect</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/whiteboard.png" alt="Whiteboard">
+              <span>Infinite Canvas</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/chat.png" alt="Team Chat">
+              <span>Team Sync</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/docs.png" alt="Docs">
+              <span>Shared Notes</span>
+            </div>
+            <div class="carousel-card">
+              <img src="assets/images/carousel/mobile.png" alt="Mobile">
+              <span>Anywhere Access</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

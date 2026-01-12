@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
@@ -11,6 +11,7 @@ import { AuthService } from '../../../services/auth.service';
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+    @Input() theme: 'light' | 'dark' = 'light';
     constructor(public auth: AuthService, private router: Router) { }
 
     logout() {

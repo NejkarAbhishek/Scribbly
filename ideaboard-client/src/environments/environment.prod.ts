@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://scribbly-backend.onrender.com/api',
-  socketUrl: 'https://scribbly-backend.onrender.com'
+  apiUrl: 'https://scribbly-ubnv.onrender.com',
+  socketUrl: 'https://scribbly-ubnv.onrender.com'
 };

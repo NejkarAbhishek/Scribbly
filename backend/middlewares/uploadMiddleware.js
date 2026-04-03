@@ -1,19 +1,6 @@
 import multer from "multer";
 import path from "path";
-import fs from "fs";
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const folderPath = "meetingImages/";
-        if (!fs.existsSync(folderPath)) {
-            fs.mkdirSync(folderPath, { recursive: true });
-        }
-        cb(null, folderPath);
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif/;

@@ -74,15 +74,14 @@ export const updateProfile = async (req, res) => {
       return res.status(400).json({ message: "No file uploaded." });
     }
 
-    const profileImage = path.normalize(req.file.path);
+    const base64Image = req.file.buffer.toString("base64");
+    const profileImage = `data:${req.file.mimetype};base64,${base64Image}`;
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { profileImage },
       { new: true }
     );
-
-    updatedUser.profileImage = updatedUser.profileImage.replace(/\\/g, "/");
 
     res.status(200).json({
       message: "Profile updated successfully",

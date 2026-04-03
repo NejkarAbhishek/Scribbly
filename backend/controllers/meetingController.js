@@ -122,15 +122,14 @@ export const updateMeetingProfile = async (req, res) => {
       return res.status(400).json({ message: "No file uploaded." });
     }
 
-    const meetingImage = path.normalize(req.file.path);
+    const base64Image = req.file.buffer.toString("base64");
+    const meetingImage = `data:${req.file.mimetype};base64,${base64Image}`;
 
     const updatedMeeting = await Meeting.findByIdAndUpdate(
       meeting._id,
       { profileImage: meetingImage },
       { new: true }
     );
-
-    updatedMeeting.profileImage = updatedMeeting.profileImage.replace(/\\/g, "/");
 
     res.status(200).json({
       message: "Profile updated successfully",

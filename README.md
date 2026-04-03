@@ -1,131 +1,102 @@
-# Scribbly 🎨
+<div align="center">
+  <img src="https://img.icons8.com/color/96/000000/paint-palette.png" alt="Scribbly Logo" width="80" />
+  <h1>Scribbly 🎨</h1>
+  <p><strong>A high-performance, real-time collaborative whiteboard platform built for seamless team ideation.</strong></p>
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=flat&logo=angular&logoColor=white)
-![Node](https://img.shields.io/badge/node.js-%2343853D.svg?style=flat&logo=node.js&logoColor=white)
-![Socket.io](https://img.shields.io/badge/Socket.io-black?style=flat&logo=socket.io&badgeColor=010101)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=flat&logo=mongodb&logoColor=white)
-
-> **A high-performance, real-time collaborative whiteboard platform built for seamless team ideation.**
-
-Scribbly is a modern web application that enables teams to collaborate visually in real-time. Built with the **MEAN stack** (MongoDB, Express, Angular, Node.js) and **Socket.IO**, it delivers a low-latency, synchronized drawing experience with integrated chat and meeting management.
+  <p>
+    <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular" />
+    <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node" />
+    <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" alt="Express" />
+    <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+    <img src="https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101" alt="Socket" />
+  </p>
+</div>
 
 ---
 
-## 🚀 Key Features
+Scribbly is an advanced full-stack modern web application that enables teams to collaborate visually in real-time. Built around the **MEAN stack** and **Socket.IO**, it provides an incredibly low-latency, synchronized drawing canvas alongside integrated meetings and chat features.
 
-*   **Real-time Collaboration**: Instant synchronization of drawing events across all connected clients using WebSockets.
-*   **High-Performance Rendering**: Optimized canvas rendering engine with **NgZone** bypass and event throttling (10ms) to ensure 60fps performance even under load.
-*   **Secure Authentication**: Robust JWT-based authentication for both REST API endpoints and Socket.IO connections.
-*   **Scalable Architecture**: Modular backend design with database indexing and API pagination to handle growing datasets.
-*   **Modern UI/UX**: Aesthetic, responsive interface designed with **Google Material Design 3** principles, featuring a floating toolbar and glassmorphism effects.
-*   **Team Communication**: Integrated real-time chat with persistent message history for active meetings.
+## ✨ Key Features
 
-## 🛠️ Tech Stack
+- **⚡ Real-time Collaboration:** Drawing events are instantly synchronized across all connected peers using an optimized Socket.IO communication layer.
+- **🎨 High-Performance Rendering:** We've decoupled canvas event listeners (`mousemove`, `touchmove`) from Angular’s `NgZone` and applied a ~10ms event throttle. The result is a buttery smooth 60fps experience that doesn't bottleneck the browser's main thread.
+- **🔐 Secure Authentication Base:** Role-based access using JSON Web Tokens (JWT) for the REST APIs, paired with secure Socket.IO connection handling.
+- **☁️ Cloud-Ready Stateless Backend:** Uploaded profiles and meeting thumbnail assets are automatically encoded as Base64 strings directly into the MongoDB document. This makes the backend fully stateless and compatible with severless/ephemeral environments like Render.
+- **💬 Team Communication:** Persistent message histories with a live embedded group chat available on the side of every whiteboard.
+- **💎 Modern UI/UX:** A frosted glassmorphism UI overlay, floating toolbars, responsive design, and intuitive UX modeled after Material Design 3 guidelines.
 
-### Frontend
-*   **Framework**: Angular 19 (Standalone Components)
-*   **State Management**: RxJS (Observables, Subjects)
-*   **Styling**: SCSS with CSS Variables (Theming), FontAwesome
-*   **Real-time**: Socket.IO Client
-*   **HTTP**: Angular HttpClient with Interceptors
+## 🖼️ Application Previews 
 
-### Backend
-*   **Runtime**: Node.js
-*   **Framework**: Express.js
-*   **Database**: MongoDB (Mongoose ODM)
-*   **Real-time**: Socket.IO Server
-*   **Security**: BCrypt (Hashing), JSON Web Tokens (JWT), CORS
+> **Developer Note:** Drop your actual application screenshots in the `screenshots/` directory to have them display here naturally!
 
-## 🏗️ System Architecture
+| Dashboard & Meeting Management | Realtime Whiteboard & Chat |
+| :---: | :---: |
+| <img src="./screenshots/dashboard.png" alt="Dashboard View" width="400" /> | <img src="./screenshots/whiteboard.png" alt="Whiteboard View" width="400" /> |
 
-Scribbly employs a **Client-Server architecture** optimized for real-time interactivity:
+---
 
-1.  **REST API**: Handles user authentication, meeting creation, and historical data retrieval.
-2.  **WebSocket Layer**: Manages ephemeral state (cursor positions, drawing paths) and chat messages.
-    *   *Optimization*: Drawing events are throttled and broadcasted efficiently to minimize bandwidth usage.
-3.  **Database**: MongoDB stores persistent data (Users, Meetings) with optimized indexes on frequently queried fields (`members.userId`).
+## 🛠️ Tech Stack & Architecture
 
-## ⚡ Performance Optimizations
+Scribbly embraces a robust **Client-Server architecture** designed to safely handle ephemeral and persistent data workloads optimally.
 
-*   **Zone.js Bypass**: Canvas event listeners (`mousemove`, `touchmove`) run outside Angular's `NgZone` to prevent unnecessary change detection cycles, significantly reducing CPU usage.
-*   **Network Throttling**: Drawing events are throttled to ~100 updates/second to balance smoothness with network efficiency.
-*   **Database Indexing**: Compound indexes on meeting members ensure O(log n) lookup times for dashboard queries.
-*   **Pagination**: API endpoints implement cursor-based or offset-based pagination to ensure scalability.
+* **Frontend:** Angular 19 (Standalone Components, RxJS, SCSS Theming)
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB (using Mongoose ODM) with compound optimized queries
+* **Real-time Pipeline:** Socket.IO v4
 
-## 📦 Installation & Setup
+### How It Works:
+1. **REST Protocol:** Ephemeral file buffers are cleanly managed in memory using `multer.memoryStorage()`, converted to `Base64` formats, and stored persistently in MongoDB collections.
+2. **WebSocket Pipeline:** Short-lived granular events (cursor brush movements, color swaps) are transmitted bidirectionally without overloading the database or the HTTP transaction stack.
+
+---
+
+## 🚀 Getting Started Locally
+
+Use the steps below to easily spin up Scribbly on your machine for local development or testing.
 
 ### Prerequisites
-*   Node.js (v18+)
-*   MongoDB (Local or Atlas)
-*   Angular CLI (`npm install -g @angular/cli`)
+* [Node.js](https://nodejs.org/en) (v18+)
+* [MongoDB](https://www.mongodb.com/try/download/community) installed locally or a free MongoDB Atlas URI.
+* Angular CLI installed globally (`npm install -g @angular/cli`)
 
-### 1. Clone the Repository
+### 1. Backend Server Setup
+Start the scalable REST and Socket server:
 ```bash
-git clone https://github.com/yourusername/scribbly.git
-cd scribbly
-```
-
-### 2. Backend Setup
-```bash
+# Navigate to the backend directory
 cd backend
+
+# Install all backend dependencies
 npm install
-# Create a .env file
-echo "PORT=5001" > .env
-echo "MONGO_URI=mongodb://localhost:27017/scribbly" >> .env
-echo "JWT_SECRET=your_super_secret_key_change_this" >> .env
-# Start the server
-npm start
+
+# (Optional) Create environment variable file if required
+echo "MONGO_URI=mongodb://127.0.0.1:27017/IdeaBoard" > .env
+echo "JWT_SECRET=super_secret_dev_key" >> .env
+echo "FRONTEND_URL=http://localhost:4200" >> .env
+
+# Start the dev server using nodemon
+npm run dev 
+# The console will display "Server running on port 5001" and "MongoDB Connected"
 ```
 
-### 3. Frontend Setup
+### 2. Frontend Application Setup
+In a new terminal window, boot up the Angular user interface:
 ```bash
+# Navigate to the frontend UI
 cd ideaboard-client
+
+# Install all Angular dependencies
 npm install
-# Start the development server
+
+# Start the Angular development engine
 npm start
 ```
-
-Navigate to `http://localhost:4200` to view the application.
-
-## 📂 Project Structure
-
-```
-scribbly/
-├── backend/                 # Node.js/Express Server
-│   ├── config/              # DB Connection
-│   ├── controllers/         # Route Logic
-│   ├── middlewares/         # Auth & Uploads
-│   ├── models/              # Mongoose Schemas
-│   ├── routes/              # API Routes
-│   ├── socket/              # Socket.IO Logic
-│   └── server.js            # Entry Point
-│
-└── ideaboard-client/        # Angular Frontend
-    ├── src/
-    │   ├── app/
-    │   │   ├── features/    # Feature Modules (Auth, Board, etc.)
-    │   │   ├── services/    # API & Socket Services
-    │   │   └── ...
-    │   ├── assets/          # Images & Static Files
-    │   └── styles.scss      # Global Design System
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-1.  Fork the repository.
-2.  Create a feature branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the branch (`git push origin feature/AmazingFeature`).
-5.  Open a Pull Request.
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+Once the compilation succeeds, pop open your browser and navigate to **`http://localhost:4200`** to log in and start using your Whiteboard!
 
 ---
 
+## 📄 License
+Distributed under the **MIT License**.
+
 <div align="center">
-  <sub>Built with ❤️ by <a href="https://github.com/yourusername">Abhishek Nejkar</a></sub>
+  <sub>Built with ❤️ by Abhishek Nejkar</sub>
 </div>

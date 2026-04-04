@@ -15,7 +15,12 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "*",
+  origin: [
+    process.env.FRONTEND_URL,
+    "https://scribbly-gsskp4dwu-abhisheknejkar-3023s-projects.vercel.app",
+    "https://scribbly-omega.vercel.app",
+    "http://localhost:4200"
+  ].filter(Boolean),
 }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
